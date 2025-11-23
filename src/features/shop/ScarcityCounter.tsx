@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { scarcityAtom } from '../../data/atoms';
-import { Badge } from '../../components/ui/Badge';
+import { Badge } from '../../components/Badge';
 
 interface ScarcityCounterProps {
     productId: string;

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import type { Product } from '../../data/products';
-import { Drawer } from '../../components/ui/Drawer';
-import { Modal } from '../../components/ui/Modal';
-import { Button } from '../../components/ui/Button';
-import { Badge } from '../../components/ui/Badge';
-import { Checkbox } from '../../components/ui/Checkbox';
+import { Drawer } from '../../components/Drawer';
+import { Modal } from '../../components/Modal';
+import { Button } from '../../components/Button';
+import { Badge } from '../../components/Badge';
+import { Checkbox } from '../../components/Checkbox';
 import { Clock } from '@phosphor-icons/react';
 import { useMediaQuery } from '../../data/useMediaQuery';
 import { getScarcityForProduct } from '../../data/scarcity';
