@@ -12,9 +12,6 @@ Before using `position: absolute`, define the positioning context (parent) and e
 #### 2. Diagnose, Don't Guess
 Use the browser inspector to find the computed styles. Isolate the failing element before writing new CSS.
 
-#### 3. Trust, but Verify the Final DOM
-React components and libraries like Radix often inject wrapper divs. Style against the rendered DOM, not the JSX.
-
 ---
 
 ### Key Architectural Patterns
@@ -29,16 +26,21 @@ All colors are derived from a single hue variable `var(--dynamic-hue)`.
 *   `--fg-accent`: Bright accent color for calls to action.
 
 **Derived Surface Variables (Critical for Glassmorphism):**
-*   `--bg-surface`: The glass background color `oklch(100% 0 0 / 0.6)`.
-*   `--bg-subtle`: A slightly opaque white for secondary backgrounds.
-*   `--border-subtle`: The semi-transparent border `oklch(100% 0 0 / 0.4)`.
-*   `--bg-hover`: Hover state background `oklch(100% 0 0 / 0.1)`.
+*   `--bg-surface`: `oklch(100% 0 0 / 0.6)` - The main glass panel background.
+*   `--bg-subtle`: `oklch(96% 0.01 H)` - For skeleton states and secondary areas.
+*   `--border-subtle`: `oklch(100% 0 0 / 0.4)` - The glass edge.
+*   `--bg-hover`: `oklch(100% 0 0 / 0.1)` - Interactive hover states.
 
-**The Rule:** Never hardcode a hex color. Always use these variables to ensure the "Liquid Glass" effect works on top of the changing background.
+**The Rule:** Always use these variables. Never hardcode colors.
 
-#### Typography: Brand vs. Body
+#### The "Liquid Glass" Recipe
 
-*   **Brand (`--font-brand`):** `Pacifico`. Use for Headings and Logo.
-*   **Body (`--font-body`):** `Geist`. Use for UI text, prices, and buttons.
+To create a glass panel, use this standard combination:
 
-**Rule:** Buttons never use Pacifico.
+```css
+.glass-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+}

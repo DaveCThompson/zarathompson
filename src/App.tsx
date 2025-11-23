@@ -1,12 +1,15 @@
-import { useState } from 'react';
-import { PRODUCTS, type Product } from './data/products';
-import { DynamicBackground } from './features/layout/DynamicBackground';
-import { Header } from './features/layout/Header';
-import { Footer } from './features/layout/Footer';
-import { ProductGrid } from './features/shop/ProductGrid';
-import { ProductDetail } from './features/shop/ProductDetail';
+import { useState, Suspense, lazy, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Toaster, toast } from 'sonner';
+import { PRODUCTS, type Product } from '@/data/products';
+import { DynamicBackground } from '@/features/layout/DynamicBackground';
+import { Header } from '@/features/layout/Header';
+import { Footer } from '@/features/layout/Footer';
+import { ProductGrid } from '@/features/shop/ProductGrid';
+import { CharityBanner } from '@/features/layout/CharityBanner';
 
-import { CharityBanner } from './features/layout/CharityBanner';
+// Lazy load the heavy detail view
+const ProductDetail = lazy(() => import('@/features/shop/ProductDetail').then(module => ({ default: module.ProductDetail })));
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -17,8 +20,32 @@ function App() {
     setIsDetailOpen(true);
   };
 
+  // Check for success param from Stripe redirect
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === 'true') {
+      toast.success('Order confirmed! Check your email.', {
+        duration: 5000,
+        style: {
+          background: 'var(--bg-surface)',
+          color: 'var(--fg-primary)',
+          border: '1px solid var(--border-subtle)',
+          backdropFilter: 'blur(10px)'
+        }
+      });
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
   return (
     <>
+      <Helmet>
+        <title>Zara Thompson | Liquid Glass Collection</title>
+        <meta name="description" content="A limited series of abstract prints exploring the boundaries of color and light." />
+      </Helmet>
+      
+      <Toaster position="top-center" />
       <DynamicBackground />
 
       <div className="min-h-screen flex flex-col">
@@ -61,13 +88,15 @@ function App() {
         <Footer />
       </div>
 
-      <ProductDetail
-        product={selectedProduct}
-        open={isDetailOpen}
-        onOpenChange={setIsDetailOpen}
-      />
+      <Suspense fallback={null}>
+        <ProductDetail
+          product={selectedProduct}
+          open={isDetailOpen}
+          onOpenChange={setIsDetailOpen}
+        />
+      </Suspense>
     </>
   );
 }
 
-export default App;
+export default App

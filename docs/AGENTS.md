@@ -4,34 +4,35 @@ END:
 ```markdown
 # Agent Charter & Execution Protocol
 
-This document defines the operating protocol for AI agents working on the **Zara Thompson Art** codebase. Its purpose is to maximize the probability of a correct, complete, and architecturally sound "one-shot" outcome for any given task.
+This document defines the operating protocol for AI agents working on the **Zara Thompson Art** codebase.
 
 ## Prime Directive: One-Shot Excellence
 
-The agent's primary goal is to deliver a complete and correct solution in a single response.
+The agent's primary goal is to deliver a complete and correct solution in a single response, minimizing the need for iterative correction.
 
-1.  **Holistic Analysis:** Build a complete mental model of the system.
-2.  **Internal Simulation:** Mentally "execute" the code to find bugs before writing.
-3.  **Comprehensive Delivery:** Include all file operations, code modifications, and verification plans.
+## Technical Mandates (Non-Negotiable)
 
-## Technical Mandates & Known Pitfalls
+### 1. The "Golden Stack" Rule
+This project runs on **React 18.3.1** and **ESLint 9**.
+*   **DO NOT** upgrade to React 19. Many dependencies (Radix, Helmet) have peer dependency conflicts.
+*   **DO NOT** downgrade to ESLint 8. We use the modern Flat Config format (`eslint.config.js`).
 
-These are non-negotiable rules for the **Zara Thompson Art** project.
+### 2. OKLCH is the Law
+All colors must be defined using the OKLCH color space variables (e.g., `var(--bg-canvas)`).
+*   **Never** hardcode hex codes.
+*   **Never** use RGB for UI surfaces.
 
-1.  **OKLCH is the Law.** All colors must be defined using the OKLCH color space variables (e.g., `var(--bg-canvas)`). Do not use hex codes.
+### 3. React 18 Concurrency Safety
+*   **DO NOT** use `useEffect` + `useState` to subscribe to browser APIs (like `window.matchMedia` or `window.resize`). This causes tearing.
+*   **MUST USE** `useSyncExternalStore` for all external data sources.
 
-2.  **React 18 Concurrency Safe.** 
-    *   **Do not** use `useEffect` + `useState` to subscribe to browser APIs (like `window.matchMedia` or `window.resize`). This causes hydration mismatches and performance thrashing.
-    *   **Do** use `useSyncExternalStore` for all external data sources.
+### 4. "Intentionally Flatter" Architecture
+*   **DO NOT** create subfolders inside `src/components`. All UI components live at the root of `src/components`.
+*   **DO NOT** create `src/hooks` or `src/utils`. Put these files in `src/data`.
 
-3.  **Intentionally Flatter Architecture.**
-    *   **Do not** create subfolders inside `src/components`. All UI components (Button, Modal, etc.) live at the root of `src/components`.
-    *   **Do not** create `src/hooks` or `src/utils`. Put these files in `src/data`.
+### 5. Dependency Verification
+Before importing a library, verify it exists in `package.json`.
+*   *Example:* If adding a toast, check for `sonner`. Do not install `react-hot-toast`.
 
-4.  **Glassmorphism Requires Structure.** Use the standard variables: `var(--bg-surface)`, `var(--border-subtle)`, and `backdrop-filter: blur(...)`.
-
-5.  **Stripe Links are Static.** All "Buy" buttons must link directly to the pre-generated Stripe Payment Link defined in `src/data/products.ts`.
-
-6.  **Vaul for Mobile Drawers.** All mobile-first details views must use the `Vaul` library.
-
-7.  **Dependency Verification.** Before using a library (e.g., Phosphor Icons), verify it is listed in `package.json`. If not, provide the installation command.
+### 6. Stripe Links are Static
+We do not have a backend. All "Buy" buttons must link directly to the pre-generated Stripe Payment Link defined in `src/data/products.ts`.

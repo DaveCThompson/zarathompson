@@ -19,6 +19,7 @@ export function DynamicBackground() {
     useEffect(() => {
         const animate = () => {
             // Increment hue (Speed: 0.1 per frame)
+            // This runs outside React's render cycle
             hueRef.current = (hueRef.current + 0.1) % 360;
 
             // Direct DOM manipulation for 60fps performance

@@ -2,25 +2,26 @@
 
 **Zarathompson.com** is a high-craft, single-page e-commerce portfolio for a student artist. It features a playful, "Liquid Glass" aesthetic using animated OKLCH color manipulation and fluid Framer Motion transitions.
 
-The site allows users to purchase physical posters (for local pickup) or digital downloads, with proceeds split between Zara's education fund and a local charity.
+The site allows users to purchase physical posters (for local pickup) or digital downloads via Stripe Payment Links.
 
 ---
 
 ## 1. Core Architecture
 
-### Tech Stack
--   **Framework:** React 18 + Vite + TypeScript
--   **Styling:** CSS Modules (Structure) + Inline Styles (Dynamic Variables)
--   **State:** Jotai (Atomic State)
--   **Animation:** Framer Motion
--   **Icons:** Phosphor Icons (React)
--   **UI Primitives:** Radix UI + Vaul (Drawer)
--   **Payments:** Stripe Payment Links (No backend)
+### Tech Stack ("The Modern Standard")
+*   **Framework:** React 18.3.1 (Stable) + Vite 5.4
+*   **Language:** TypeScript 5.5
+*   **Linting:** ESLint 9 (Flat Config)
+*   **Styling:** CSS Modules + Native CSS Variables (OKLCH Engine)
+*   **State:** Jotai (Atomic State)
+*   **Animation:** Framer Motion
+*   **Icons:** Phosphor Icons
+*   **Deployment:** GitHub Pages
 
 ### Key Features
--   **Dynamic OKLCH Engine:** The entire site's color palette rotates through a hue cycle (`0-360`) over time. All UI elements derive their color from this single source of truth.
--   **Scarcity Engine:** A client-side simulation (persisted via LocalStorage) that tracks "fake" stock levels to encourage conversion.
--   **Intentionally Flatter:** The project structure is kept shallow to maximize readability and maintainability.
+*   **Dynamic OKLCH Engine:** The entire site's color palette rotates through a hue cycle (`0-360`) at 60fps. All UI elements derive their color from this single source of truth via CSS variables.
+*   **Scarcity Engine:** A client-side simulation (persisted via LocalStorage) that generates deterministic "low stock" alerts based on the date.
+*   **Intentionally Flatter:** The project structure is kept shallow to maximize readability.
 
 ---
 
@@ -28,16 +29,15 @@ The site allows users to purchase physical posters (for local pickup) or digital
 
 This project follows a feature-based, flat architecture.
 
--   **/src/data**: The central hub for all logic, data, and hooks.
-    -   `products.ts`: Product definitions and Stripe links.
-    -   `atoms.ts`: Global Jotai atoms (Hue, Scarcity).
-    -   `useMediaQuery.ts`: React 18 safe responsive logic.
-    -   `scarcity.ts`: Stock level algorithms.
--   **/src/features**: Smart, domain-specific components.
-    -   `shop/`: Product grid, cards, details, and scarcity logic.
-    -   `layout/`: Header, Footer, Background animation.
--   **/src/components**: Flat directory for dumb, reusable UI primitives (Button, Badge, Drawer).
--   **/src/styles**: Shared CSS modules and design tokens.
+*   **/src/data**: The central hub for all logic, data, and hooks.
+    *   `products.ts`: Product definitions and Stripe links.
+    *   `atoms.ts`: Global Jotai atoms.
+    *   `useMediaQuery.ts`: React 18 safe responsive logic.
+*   **/src/features**: Smart, domain-specific components.
+    *   `shop/`: Product grid, cards, details.
+    *   `layout/`: Header, Footer, Background animation.
+*   **/src/components**: Flat directory for dumb, reusable UI primitives (Button, Badge, Modal).
+*   **/src/styles**: Shared CSS modules and design tokens.
 
 ---
 
@@ -45,28 +45,26 @@ This project follows a feature-based, flat architecture.
 
 ### Styling
 We use **CSS Modules** for component-scoped styles and **Native CSS Variables** for the theming engine.
--   **Do not use Tailwind.**
--   **Do not use SASS.**
--   **Do use `clsx`** for conditional class names.
+*   **Do not use Tailwind.**
+*   **Do not use SASS.**
+*   **Do use `clsx`** for conditional class names.
 
 ### State Management
 We use **Jotai** for all global state.
--   **`themeAtom`**: Controls the global hue.
--   **`scarcityAtom`**: Persists stock levels.
+*   **`themeAtom`**: Controls the global hue.
+*   **`scarcityAtom`**: Persists stock levels.
 
-### Mobile First
-The "Product Details" view is implemented as a **Drawer (Vaul)** on mobile and a **Modal** on desktop. This ensures a native-like feel on iOS devices.
+### React 18 Concurrency
+We strictly adhere to React 18 patterns.
+*   Use `useSyncExternalStore` for browser APIs (resize, matchMedia).
+*   Avoid `useEffect` for state updates to prevent hydration mismatches.
 
 ---
 
-## 4. Getting Started
+## 4. Deployment
+
+This project is configured for **GitHub Pages**.
 
 ```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
+# Build and Deploy
+npm run deploy
