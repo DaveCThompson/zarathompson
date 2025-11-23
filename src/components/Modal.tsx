@@ -1,3 +1,4 @@
+// FILE: src/components/Modal.tsx
 import * as Dialog from '@radix-ui/react-dialog';
 import { X } from '@phosphor-icons/react';
 import styles from './Modal.module.css';
@@ -9,6 +10,11 @@ interface ModalProps {
     trigger?: React.ReactNode;
 }
 
+/**
+ * DESKTOP MODAL
+ * Standard centered dialog for larger screens.
+ * Built on Radix UI Dialog primitive.
+ */
 export function Modal({ open, onOpenChange, children, trigger }: ModalProps) {
     return (
         <Dialog.Root open={open} onOpenChange={onOpenChange}>

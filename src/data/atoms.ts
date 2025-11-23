@@ -1,3 +1,4 @@
+// FILE: src/data/atoms.ts
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { PRODUCTS } from './products';
@@ -17,7 +18,7 @@ type StockMap = Record<string, number>;
 const generateInitialStock = (): StockMap => {
     const stock: StockMap = {};
     PRODUCTS.forEach((p) => {
-        // Random stock between 1 and 5 for "Tasteful Scarcity"
+        // Random stock between 1 and 5 to create "Tasteful Scarcity"
         stock[p.id] = Math.floor(Math.random() * 5) + 1;
     });
     return stock;

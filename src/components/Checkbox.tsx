@@ -1,3 +1,4 @@
+// FILE: src/components/Checkbox.tsx
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { Check } from '@phosphor-icons/react';
 import styles from './Checkbox.module.css';
@@ -10,6 +11,11 @@ interface CheckboxProps {
     className?: string;
 }
 
+/**
+ * CHECKBOX COMPONENT
+ * Built on Radix UI Primitive for accessibility (keyboard nav, screen readers).
+ * Styled with Phosphor Icons.
+ */
 export function Checkbox({ checked, onCheckedChange, id, label, className }: CheckboxProps) {
     return (
         <div className={`${styles.container} ${className || ''}`}>

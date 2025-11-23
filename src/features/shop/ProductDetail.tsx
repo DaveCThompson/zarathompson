@@ -1,3 +1,4 @@
+// FILE: src/features/shop/ProductDetail.tsx
 import { useState } from 'react';
 import type { Product } from '../../data/products';
 import { Drawer } from '../../components/Drawer';
@@ -16,6 +17,11 @@ interface ProductDetailProps {
     onOpenChange: (open: boolean) => void;
 }
 
+/**
+ * ADAPTIVE UI:
+ * Renders as a specialized bottom Drawer on mobile (via Vaul) 
+ * and a centered Modal on desktop (via Radix).
+ */
 export function ProductDetail({ product, open, onOpenChange }: ProductDetailProps) {
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
@@ -26,6 +32,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
 
+    // Shared content between Modal and Drawer
     const content = (
         <div className={styles.container}>
             <div className={styles.imageContainer}>

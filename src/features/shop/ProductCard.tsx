@@ -1,3 +1,4 @@
+// FILE: src/features/shop/ProductCard.tsx
 import type { Product } from '../../data/products';
 import { ScarcityCounter } from './ScarcityCounter';
 import styles from './ProductCard.module.css';
@@ -17,6 +18,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             aria-label={`View details for ${product.title}`}
         >
             <div className={styles.imageContainer}>
+                {/* 
+                  Standard IMG tag is used here as we are on Vite/Client-side.
+                  If migrating to Next.js, swap for next/image.
+                */}
                 <img src={product.image} alt="" className={styles.image} loading="lazy" />
                 <div className={styles.badgeContainer}>
                     <ScarcityCounter productId={product.id} compact />

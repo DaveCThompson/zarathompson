@@ -13,6 +13,7 @@ The site allows users to purchase physical posters (for local pickup) or digital
 -   **Styling:** CSS Modules (Structure) + Inline Styles (Dynamic Variables)
 -   **State:** Jotai (Atomic State)
 -   **Animation:** Framer Motion
+-   **Icons:** Phosphor Icons (React)
 -   **UI Primitives:** Radix UI + Vaul (Drawer)
 -   **Payments:** Stripe Payment Links (No backend)
 
@@ -27,13 +28,15 @@ The site allows users to purchase physical posters (for local pickup) or digital
 
 This project follows a feature-based, flat architecture.
 
--   **/src/data**: The single source of truth for data and global state.
+-   **/src/data**: The central hub for all logic, data, and hooks.
     -   `products.ts`: Product definitions and Stripe links.
     -   `atoms.ts`: Global Jotai atoms (Hue, Scarcity).
+    -   `useMediaQuery.ts`: React 18 safe responsive logic.
+    -   `scarcity.ts`: Stock level algorithms.
 -   **/src/features**: Smart, domain-specific components.
     -   `shop/`: Product grid, cards, details, and scarcity logic.
-    -   `theme/`: Background animation logic.
--   **/src/components/ui**: Dumb, reusable UI primitives (Button, Badge, Drawer).
+    -   `layout/`: Header, Footer, Background animation.
+-   **/src/components**: Flat directory for dumb, reusable UI primitives (Button, Badge, Drawer).
 -   **/src/styles**: Shared CSS modules and design tokens.
 
 ---
@@ -67,4 +70,3 @@ npm run dev
 
 # Build for production
 npm run build
-```

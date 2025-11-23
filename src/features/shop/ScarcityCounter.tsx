@@ -1,3 +1,4 @@
+// FILE: src/features/shop/ScarcityCounter.tsx
 import { useAtomValue } from 'jotai';
 import { scarcityAtom } from '../../data/atoms';
 import { Badge } from '../../components/Badge';
@@ -11,8 +12,8 @@ export function ScarcityCounter({ productId, compact = false }: ScarcityCounterP
     const stockMap = useAtomValue(scarcityAtom);
     const stock = stockMap[productId];
 
-    // If stock is undefined or high, don't show anything (or show high stock logic if needed)
-    // For this project, we always show "Low Stock" if < 5 to drive urgency.
+    // If stock is undefined or high (>5), we hide the counter to avoid clutter.
+    // We only want to highlight scarcity when it drives urgency.
     if (stock === undefined || stock > 5) return null;
 
     if (compact) {
