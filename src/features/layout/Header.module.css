@@ -2,12 +2,12 @@
     height: var(--header-height);
     display: flex;
     align-items: center;
-    position: sticky;
-    top: 0;
+    position: relative; /* Positioned inside the sticky group */
     z-index: 10;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--surface-glass-border);
-    background: oklch(100% 0 0 / 0.3);
+    
+    /* Background is transparent so it shares the group's blur/background */
+    background: var(--glass-surface); 
+    transition: all 0.3s ease;
 }
 
 .container {
@@ -29,6 +29,7 @@
 
 .nav {
     display: flex;
+    align-items: center;
     gap: var(--space-lg);
 }
 
@@ -42,4 +43,22 @@
 
 .link:hover {
     color: var(--fg-primary);
+}
+
+.themeToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--fg-secondary);
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.themeToggle:hover {
+    color: var(--fg-primary);
+    background: var(--glass-border);
 }

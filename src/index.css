@@ -1,86 +1,102 @@
 /* FILE: src/index.css */
-
-/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Pacifico&display=swap');
 
 :root {
-  /* --- DYNAMIC ENGINE --- */
-  /* CRITICAL: This variable is updated by DynamicBackground.tsx 60 times/sec */
-  --dynamic-hue: 0;
+  /* --- 1. THE SLOW DRIFT ENGINE --- */
+  animation: hue-drift 600s linear infinite;
+  
+  /* --- 2. PALETTE GENERATION (OKLCH) --- */
+  --orb-1: oklch(90% 0.1 var(--dynamic-hue));
+  --orb-2: oklch(88% 0.12 calc(var(--dynamic-hue) + 60));
+  --orb-3: oklch(85% 0.1 calc(var(--dynamic-hue) + 120));
 
-  /* --- PALETTE (OKLCH) --- */
-  /* L = Lightness, C = Chroma (Intensity), H = Hue */
-  /* All colors must derive from --dynamic-hue to maintain harmony */
-
-  /* Canvas: High lightness, low chroma, dynamic hue */
-  --bg-canvas: oklch(98% 0.01 var(--dynamic-hue));
-
-  /* Glass Primitives */
-  --surface-glass: oklch(100% 0 0 / 0.6);
-  --surface-glass-border: oklch(100% 0 0 / 0.4);
-
-  /* Derived Variables (Use these in components) */
-  --bg-surface: var(--surface-glass);
-  --bg-subtle: oklch(96% 0.01 var(--dynamic-hue)); 
-  --border-subtle: var(--surface-glass-border);
-  --bg-hover: oklch(100% 0 0 / 0.1);
-  --accent-surface: oklch(95% 0.05 var(--dynamic-hue));
-
+  /* --- 3. FROSTED GLASS PHYSICS (Light Mode) --- */
+  --bg-canvas: oklch(99% 0.005 var(--dynamic-hue));
+  --glass-surface: oklch(100% 0 0 / 0.75);
+  --glass-border: oklch(100% 0 0 / 0.5);
+  --glass-highlight: oklch(100% 0 0 / 0.4);
+  --glass-shadow: oklch(0% 0 0 / 0.08);
+  
   /* Text */
-  --fg-primary: oklch(20% 0.02 var(--dynamic-hue));
-  --fg-secondary: oklch(55% 0.05 var(--dynamic-hue));
-  --fg-accent: oklch(60% 0.22 var(--dynamic-hue)); /* Vibrant Action Color */
+  --fg-primary: oklch(25% 0.05 var(--dynamic-hue));
+  --fg-secondary: oklch(50% 0.05 var(--dynamic-hue));
+  --fg-accent: oklch(60% 0.15 var(--dynamic-hue));
 
-  /* --- ACCENTS --- */
-  --accent-primary: oklch(65% 0.25 var(--dynamic-hue));
-  --accent-secondary: oklch(70% 0.25 calc(var(--dynamic-hue) + 30));
-
-  /* Status */
-  --color-sale: oklch(63% 0.22 25); /* Fixed Red/Orange for urgency */
-  --color-white: oklch(100% 0 0);
-
-  /* --- TYPOGRAPHY --- */
-  --font-brand: 'Pacifico', cursive;
-  --font-body: 'Geist', sans-serif;
-
-  /* --- SPACING --- */
+  /* Layout */
+  --radius-blob: 24px;
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
   --space-xl: 4rem;
-
-  /* --- LAYOUT --- */
-  --radius-md: 12px;
-  --radius-lg: 24px;
   --header-height: 80px;
+  
+  /* Typography */
+  --font-brand: 'Pacifico', cursive;
+  --font-body: 'Geist', sans-serif;
 }
 
-/* Reset & Base */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* --- DARK MODE OVERRIDES --- */
+.dark {
+  --bg-canvas: oklch(8% 0.02 var(--dynamic-hue));
+  --glass-surface: oklch(15% 0.02 270 / 0.75); 
+  --glass-border: oklch(100% 0 0 / 0.15);
+  --glass-highlight: oklch(100% 0 0 / 0.2); 
+  --glass-shadow: oklch(0% 0 0 / 0.5);
+  --fg-primary: oklch(98% 0 0);
+  --fg-secondary: oklch(75% 0.02 270);
+  --fg-accent: oklch(75% 0.15 var(--dynamic-hue));
+  --orb-1: oklch(45% 0.22 var(--dynamic-hue));
+  --orb-2: oklch(40% 0.24 calc(var(--dynamic-hue) + 60));
+  --orb-3: oklch(42% 0.2 calc(var(--dynamic-hue) + 120));
 }
+
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: var(--font-body);
   background-color: var(--bg-canvas);
   color: var(--fg-primary);
-  transition: background-color 0.5s ease;
-  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.5s ease, color 0.5s ease;
   overflow-x: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
-button {
-  font-family: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
+/* --- HEADER UNIT UTILITY --- */
+.header-group {
+  /* Locks the Banner and Header together physically */
+  display: flex;
+  flex-direction: column; 
+  
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  
+  /* Shared Glass Effect */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
 }
 
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* --- GPU ACCELERATION FOR BLOBS --- */
+/* Prevents flickering by forcing own composite layer */
+.blob-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+@property --dynamic-hue {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes hue-drift {
+  from { --dynamic-hue: 0; }
+  to { --dynamic-hue: 360; }
 }

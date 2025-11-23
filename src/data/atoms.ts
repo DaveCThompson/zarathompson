@@ -4,21 +4,19 @@ import { atomWithStorage } from 'jotai/utils';
 import { PRODUCTS } from './products';
 
 // --- THEME ENGINE ---
-// The dynamic hue value (0-360) that drives the OKLCH engine.
-// This is updated via requestAnimationFrame in the DynamicBackground component.
+// Persist dark mode preference. Defaults to false (Light Mode).
+export const darkModeAtom = atomWithStorage<boolean>('zara_dark_mode', false);
+
+// The dynamic hue value (0-360) is now handled by CSS animations, 
+// but we keep this if we need JS access to it later.
 export const themeAtom = atom<number>(0);
 
 // --- SCARCITY ENGINE ---
-// Persist stock levels to localStorage so they survive refreshes.
-// Key: 'zara_stock_v1'
-// Value: Record<string, number> (ProductId -> Stock)
-
 type StockMap = Record<string, number>;
 
 const generateInitialStock = (): StockMap => {
     const stock: StockMap = {};
     PRODUCTS.forEach((p) => {
-        // Random stock between 1 and 5 to create "Tasteful Scarcity"
         stock[p.id] = Math.floor(Math.random() * 5) + 1;
     });
     return stock;

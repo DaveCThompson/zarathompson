@@ -1,14 +1,14 @@
 // FILE: src/features/shop/ProductDetail.tsx
 import { useState } from 'react';
-import type { Product } from '../../data/products';
-import { Drawer } from '../../components/Drawer';
-import { Modal } from '../../components/Modal';
-import { Button } from '../../components/Button';
-import { Badge } from '../../components/Badge';
-import { Checkbox } from '../../components/Checkbox';
+import type { Product } from '@/data/products';
+import { Drawer } from '@/components/Drawer';
+import { Modal } from '@/components/Modal';
+import { Button } from '@/components/Button';
+import { Badge } from '@/components/Badge';
+import { Checkbox } from '@/components/Checkbox';
 import { Clock } from '@phosphor-icons/react';
-import { useMediaQuery } from '../../data/useMediaQuery';
-import { getScarcityForProduct } from '../../data/scarcity';
+import { useMediaQuery } from '@/data/useMediaQuery';
+import { getScarcityForProduct } from '@/data/scarcity';
 import styles from './ProductDetail.module.css';
 
 interface ProductDetailProps {
@@ -17,11 +17,6 @@ interface ProductDetailProps {
     onOpenChange: (open: boolean) => void;
 }
 
-/**
- * ADAPTIVE UI:
- * Renders as a specialized bottom Drawer on mobile (via Vaul) 
- * and a centered Modal on desktop (via Radix).
- */
 export function ProductDetail({ product, open, onOpenChange }: ProductDetailProps) {
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
@@ -31,12 +26,14 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
 
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
+    
+    // Use high-res image if available, fallback to thumb
+    const displayImage = product.imageFull || product.image;
 
-    // Shared content between Modal and Drawer
     const content = (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
-                <img src={product.image} alt={product.title} className={styles.image} />
+                <img src={displayImage} alt={product.title} className={styles.image} />
             </div>
             <div className={styles.details}>
                 <div className={styles.header}>

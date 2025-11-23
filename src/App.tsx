@@ -1,39 +1,47 @@
 import { useState, Suspense, lazy, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Toaster, toast } from 'sonner';
+import { useAtomValue } from 'jotai';
+import { darkModeAtom } from '@/data/atoms';
 import { PRODUCTS, type Product } from '@/data/products';
-import { DynamicBackground } from '@/features/layout/DynamicBackground';
+import { InteractiveBackground } from '@/features/layout/InteractiveBackground';
 import { Header } from '@/features/layout/Header';
 import { Footer } from '@/features/layout/Footer';
 import { ProductGrid } from '@/features/shop/ProductGrid';
 import { CharityBanner } from '@/features/layout/CharityBanner';
 
-// Lazy load the heavy detail view
 const ProductDetail = lazy(() => import('@/features/shop/ProductDetail').then(module => ({ default: module.ProductDetail })));
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const isDark = useAtomValue(darkModeAtom);
 
   const handleProductSelect = (product: Product) => {
     setSelectedProduct(product);
     setIsDetailOpen(true);
   };
 
-  // Check for success param from Stripe redirect
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('success') === 'true') {
       toast.success('Order confirmed! Check your email.', {
         duration: 5000,
         style: {
-          background: 'var(--bg-surface)',
+          background: 'var(--glass-surface)',
           color: 'var(--fg-primary)',
-          border: '1px solid var(--border-subtle)',
-          backdropFilter: 'blur(10px)'
+          border: '1px solid var(--glass-border)',
+          backdropFilter: 'blur(20px)'
         }
       });
-      // Clean URL
       window.history.replaceState({}, '', window.location.pathname);
     }
   }, []);
@@ -46,11 +54,17 @@ function App() {
       </Helmet>
       
       <Toaster position="top-center" />
-      <DynamicBackground />
+      
+      <InteractiveBackground />
 
-      <div className="min-h-screen flex flex-col">
-        <CharityBanner />
-        <Header />
+      <div className="min-h-screen flex flex-col relative z-10">
+        
+        {/* THE UNIFIED HEADER UNIT */}
+        {/* Styles defined in index.css (.header-group) */}
+        <div className="header-group">
+          <CharityBanner />
+          <Header />
+        </div>
 
         <main style={{ flex: 1, padding: '0 var(--space-lg)' }}>
           <div style={{
@@ -61,9 +75,10 @@ function App() {
           }}>
             <h2 style={{
               fontFamily: 'var(--font-brand)',
-              fontSize: '3rem',
+              fontSize: '3.5rem',
               color: 'var(--fg-primary)',
-              marginBottom: 'var(--space-md)'
+              marginBottom: 'var(--space-md)',
+              textShadow: '0 4px 20px rgba(0,0,0,0.1)'
             }}>
               Liquid Glass Collection
             </h2>
@@ -72,10 +87,15 @@ function App() {
               color: 'var(--fg-secondary)',
               maxWidth: '600px',
               margin: '0 auto',
-              marginBottom: 'var(--space-xl)'
+              marginBottom: 'var(--space-xl)',
+              fontSize: '1.125rem',
+              lineHeight: '1.6'
             }}>
               A limited series of abstract prints exploring the boundaries of color and light.
-              Proceeds support local art education and children's healthcare.
+              <br/>
+              <span style={{ opacity: 0.6, fontSize: '0.9rem' }}>
+                Move your cursor to ripple the glass.
+              </span>
             </p>
           </div>
 

@@ -1,20 +1,19 @@
 .banner {
-    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
-    background-size: 200% 100%;
-    color: white;
+    /* Saturated Glass Look */
+    /* Uses the primary orb color, but transparent */
+    background-color: oklch(from var(--orb-1) l c h / 0.85);
+    
+    color: var(--fg-primary);
     text-align: center;
-    padding: var(--space-sm) var(--space-md);
-    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-md);
+    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.02em;
-    position: sticky;
-    top: 0;
+    position: relative; /* Relative to the header-group */
     z-index: 20;
-    /* Above header */
-    animation: gradient-shift 8s ease infinite;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    
+    /* Subtle divider at bottom to separate from header */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .text {
@@ -23,12 +22,16 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-sm);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode text adjustment for contrast on saturated background */
+:global(.dark) .banner {
+    color: oklch(98% 0 0);
+    background-color: oklch(from var(--orb-1) l c h / 0.6);
 }
 
 @media (max-width: 600px) {
     .banner {
-        font-size: 0.8rem;
-        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.75rem;
     }
 }
