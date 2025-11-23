@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.root {
+    all: unset;
+    background-color: var(--surface-glass);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--surface-glass-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.root:hover {
+    background-color: oklch(100% 0 0 / 0.8);
+}
+
+.root:focus-visible {
+    box-shadow: 0 0 0 2px var(--fg-accent);
+}
+
+.root[data-state='checked'] {
+    background-color: var(--fg-primary);
+    border-color: var(--fg-primary);
+    color: var(--bg-canvas);
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+}
+
+.label {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--fg-secondary);
+    cursor: pointer;
+    user-select: none;
+}

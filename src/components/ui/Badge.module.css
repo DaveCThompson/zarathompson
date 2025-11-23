@@ -1,0 +1,25 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.default {
+    background: var(--surface-glass);
+    border: 1px solid var(--surface-glass-border);
+    color: var(--fg-secondary);
+    backdrop-filter: blur(4px);
+}
+
+.sale {
+    background: var(--color-sale);
+    color: white;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 8px oklch(63% 0.22 25 / 0.4);
+}

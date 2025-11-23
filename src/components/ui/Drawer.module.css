@@ -1,0 +1,73 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 50;
+}
+
+.content {
+    background-color: var(--bg-canvas);
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    height: 96%;
+    max-height: 96%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 51;
+    outline: none;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.handle {
+    width: 48px;
+    height: 4px;
+    background-color: var(--fg-secondary);
+    opacity: 0.2;
+    border-radius: 999px;
+    margin: 12px auto;
+    flex-shrink: 0;
+}
+
+.body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-lg);
+    /* Ensure content doesn't get hidden behind safe areas on mobile */
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Desktop override: Center modal style */
+@media (min-width: 768px) {
+    .content {
+        height: auto;
+        max-height: 85vh;
+        width: 90%;
+        max-width: 1000px;
+        margin: 0 auto;
+        bottom: 50%;
+        transform: translateY(50%) !important;
+        /* Override Vaul transform */
+        border-radius: 24px;
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%, 50%) !important;
+    }
+
+    /* Vaul adds transform styles inline, we need to be careful. 
+     Actually, Vaul is designed for mobile drawers. 
+     For desktop, we might want a different approach or just let it be a bottom sheet.
+     But the PRD says "Desktop: Centered Modal".
+     Vaul has a 'direction' prop but it's for slide direction.
+     
+     Let's stick to the bottom sheet for now as it's simpler and "High Craft" often uses sheets.
+     Or we can use the Vaul `snapPoints` feature.
+     
+     Wait, Vaul v0.9+ supports dialog mode.
+     Let's just style it as a bottom sheet for now to be safe and consistent.
+  */
+}

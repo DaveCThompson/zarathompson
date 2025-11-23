@@ -1,46 +1,72 @@
-import { useEffect } from 'react';
-import { useAtom } from 'jotai';
-import { atom } from 'jotai';
+import { useState } from 'react';
+import { PRODUCTS, type Product } from './data/products';
+import { DynamicBackground } from './features/layout/DynamicBackground';
+import { Header } from './features/layout/Header';
+import { Footer } from './features/layout/Footer';
+import { ProductGrid } from './features/shop/ProductGrid';
+import { ProductDetail } from './features/shop/ProductDetail';
 
-// Temporary atom for testing
-const hueAtom = atom(0);
+import { CharityBanner } from './features/layout/CharityBanner';
 
 function App() {
-  const [hue, setHue] = useAtom(hueAtom);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  // Simple animation loop to test OKLCH
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHue((h) => (h + 1) % 360);
-    }, 50);
-    return () => clearInterval(interval);
-  }, [setHue]);
+  const handleProductSelect = (product: Product) => {
+    setSelectedProduct(product);
+    setIsDetailOpen(true);
+  };
 
   return (
-    <div 
-      style={{ 
-        // This injects the dynamic value into the CSS variable
-        '--dynamic-hue': hue 
-      } as React.CSSProperties}
-      className="min-h-screen flex flex-col items-center justify-center gap-4"
-    >
-      <h1 style={{ fontFamily: 'var(--font-brand)', fontSize: '3rem' }}>
-        Zara Thompson Art
-      </h1>
-      
-      <div style={{ 
-        padding: '2rem', 
-        background: 'var(--surface-glass)',
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--surface-glass-border)',
-        backdropFilter: 'blur(10px)'
-      }}>
-        <p>Testing High Craft UI</p>
-        <p style={{ color: 'var(--fg-accent)', fontWeight: 'bold' }}>
-          Hue: {hue}
-        </p>
+    <>
+      <DynamicBackground />
+
+      <div className="min-h-screen flex flex-col">
+        <CharityBanner />
+        <Header />
+
+        <main style={{ flex: 1, padding: '0 var(--space-lg)' }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            paddingTop: 'var(--space-xl)',
+            textAlign: 'center'
+          }}>
+            <h2 style={{
+              fontFamily: 'var(--font-brand)',
+              fontSize: '3rem',
+              color: 'var(--fg-primary)',
+              marginBottom: 'var(--space-md)'
+            }}>
+              Liquid Glass Collection
+            </h2>
+            <p style={{
+              fontFamily: 'var(--font-body)',
+              color: 'var(--fg-secondary)',
+              maxWidth: '600px',
+              margin: '0 auto',
+              marginBottom: 'var(--space-xl)'
+            }}>
+              A limited series of abstract prints exploring the boundaries of color and light.
+              Proceeds support local art education and children's healthcare.
+            </p>
+          </div>
+
+          <ProductGrid
+            products={PRODUCTS}
+            onProductSelect={handleProductSelect}
+          />
+        </main>
+
+        <Footer />
       </div>
-    </div>
+
+      <ProductDetail
+        product={selectedProduct}
+        open={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+      />
+    </>
   );
 }
 
