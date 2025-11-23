@@ -6,8 +6,8 @@ import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Checkbox } from '../../components/ui/Checkbox';
 import { Clock } from '@phosphor-icons/react';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
-import { getScarcityForProduct } from '../../utils/scarcity';
+import { useMediaQuery } from '../../data/useMediaQuery';
+import { getScarcityForProduct } from '../../data/scarcity';
 import styles from './ProductDetail.module.css';
 
 interface ProductDetailProps {
@@ -22,14 +22,6 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const [agreedToTerms, setAgreedToTerms] = useState(false);
 
     if (!product) return null;
-
-    // Reset state when product changes
-    if (!open && (selectedVariantId || agreedToTerms)) {
-        // This might need a useEffect to properly reset on close, 
-        // but for now we'll rely on the component unmounting/remounting logic or manual reset
-        // Actually, let's just use a key on the content or useEffect.
-        // For simplicity in this step, we'll leave it, but a useEffect would be better.
-    }
 
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);

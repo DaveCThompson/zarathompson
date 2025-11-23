@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { PRODUCTS } from '../data/products';
+import { PRODUCTS } from './products';
 
 // --- THEME ENGINE ---
 // The dynamic hue value (0-360) that drives the OKLCH engine.

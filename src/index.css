@@ -16,6 +16,13 @@
   --surface-glass: oklch(100% 0 0 / 0.6);
   --surface-glass-border: oklch(100% 0 0 / 0.4);
 
+  /* Derived Variables for Component System */
+  --bg-subtle: oklch(96% 0.01 var(--dynamic-hue)); 
+  --bg-surface: var(--surface-glass);
+  --border-subtle: var(--surface-glass-border);
+  --bg-hover: oklch(100% 0 0 / 0.1);
+  --accent-surface: oklch(95% 0.05 var(--dynamic-hue));
+
   /* Text */
   --fg-primary: oklch(20% 0.02 var(--dynamic-hue));
   --fg-secondary: oklch(55% 0.05 var(--dynamic-hue));

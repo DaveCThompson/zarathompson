@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import { scarcityAtom } from '../../store/atoms';
+import { scarcityAtom } from '../../data/atoms';
 import { Badge } from '../../components/ui/Badge';
 
 interface ScarcityCounterProps {
