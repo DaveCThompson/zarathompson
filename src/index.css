@@ -1,10 +1,9 @@
 /* FILE: src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Pacifico&display=swap');
 
 :root {
   /* --- 1. THE SLOW DRIFT ENGINE --- */
   animation: hue-drift 600s linear infinite;
-  
+
   /* --- 2. PALETTE GENERATION (OKLCH) --- */
   --orb-1: oklch(90% 0.1 var(--dynamic-hue));
   --orb-2: oklch(88% 0.12 calc(var(--dynamic-hue) + 60));
@@ -16,7 +15,7 @@
   --glass-border: oklch(100% 0 0 / 0.5);
   --glass-highlight: oklch(100% 0 0 / 0.4);
   --glass-shadow: oklch(0% 0 0 / 0.08);
-  
+
   /* Text */
   --fg-primary: oklch(25% 0.05 var(--dynamic-hue));
   --fg-secondary: oklch(50% 0.05 var(--dynamic-hue));
@@ -30,7 +29,7 @@
   --space-lg: 2rem;
   --space-xl: 4rem;
   --header-height: 80px;
-  
+
   /* Typography */
   --font-brand: 'Pacifico', cursive;
   --font-body: 'Geist', sans-serif;
@@ -39,9 +38,9 @@
 /* --- DARK MODE OVERRIDES --- */
 .dark {
   --bg-canvas: oklch(8% 0.02 var(--dynamic-hue));
-  --glass-surface: oklch(15% 0.02 270 / 0.75); 
+  --glass-surface: oklch(15% 0.02 270 / 0.75);
   --glass-border: oklch(100% 0 0 / 0.15);
-  --glass-highlight: oklch(100% 0 0 / 0.2); 
+  --glass-highlight: oklch(100% 0 0 / 0.2);
   --glass-shadow: oklch(0% 0 0 / 0.5);
   --fg-primary: oklch(98% 0 0);
   --fg-secondary: oklch(75% 0.02 270);
@@ -52,7 +51,11 @@
 }
 
 /* Reset */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: var(--font-body);
@@ -67,18 +70,27 @@ body {
 .header-group {
   /* Locks the Banner and Header together physically */
   display: flex;
-  flex-direction: column; 
-  
+  flex-direction: column;
+
   position: sticky;
   top: 0;
   z-index: 50;
-  
-  /* Shared Glass Effect */
+
+  /* Shared Glass Effect with Dynamic Gradient */
+  background: linear-gradient(30deg,
+      oklch(95% 0.05 var(--dynamic-hue) / 0.85),
+      oklch(95% 0.05 calc(var(--dynamic-hue) + 60) / 0.85));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+}
+
+.dark .header-group {
+  background: linear-gradient(30deg,
+      oklch(20% 0.1 var(--dynamic-hue) / 0.85),
+      oklch(20% 0.1 calc(var(--dynamic-hue) + 60) / 0.85));
 }
 
 /* --- GPU ACCELERATION FOR BLOBS --- */
@@ -97,6 +109,11 @@ body {
 }
 
 @keyframes hue-drift {
-  from { --dynamic-hue: 0; }
-  to { --dynamic-hue: 360; }
+  from {
+    --dynamic-hue: 0;
+  }
+
+  to {
+    --dynamic-hue: 360;
+  }
 }

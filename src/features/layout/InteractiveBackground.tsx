@@ -1,8 +1,8 @@
 // FILE: src/features/layout/InteractiveBackground.tsx
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useTime } from 'framer-motion';
 
-export function InteractiveBackground() {
+export const InteractiveBackground = memo(function InteractiveBackground() {
     // 1. Mouse/Touch Input
     const inputX = useMotionValue(0.5);
     const inputY = useMotionValue(0.5);
@@ -17,7 +17,7 @@ export function InteractiveBackground() {
 
     // 4. Transforms
     // We combine the Mouse Spring + Time Sine Wave for ultra-smooth composite motion
-    
+
     // Blob 1: Cyan (Deep Layer)
     const x1 = useTransform(smoothX, [0, 1], [150, -150]);
     const y1 = useTransform(smoothY, [0, 1], [100, -100]);
@@ -52,7 +52,7 @@ export function InteractiveBackground() {
 
         window.addEventListener('mousemove', handleMove);
         window.addEventListener('touchmove', handleTouch);
-        
+
         return () => {
             window.removeEventListener('mousemove', handleMove);
             window.removeEventListener('touchmove', handleTouch);
@@ -70,7 +70,7 @@ export function InteractiveBackground() {
 
     const blobCommon = {
         borderRadius: '50%',
-        filter: 'blur(80px)', 
+        filter: 'blur(80px)',
         opacity: 0.6,
         position: 'absolute' as const,
         // Crucial: Use the class for GPU hacks
@@ -78,7 +78,7 @@ export function InteractiveBackground() {
 
     return (
         <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', zIndex: -1, pointerEvents: 'none' }}>
-            
+
             {/* BLOB 1 */}
             <motion.div style={{ ...blobContainer, x: x1, y: y1 }}>
                 <motion.div
@@ -95,7 +95,7 @@ export function InteractiveBackground() {
                     }}
                 />
             </motion.div>
-            
+
             {/* BLOB 2 */}
             <motion.div style={{ ...blobContainer, x: x2, y: y2 }}>
                 <motion.div
@@ -131,4 +131,4 @@ export function InteractiveBackground() {
             </motion.div>
         </div>
     );
-}
+});

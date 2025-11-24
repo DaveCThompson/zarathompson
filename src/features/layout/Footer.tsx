@@ -6,10 +6,7 @@ export function Footer() {
             <div className={styles.container}>
                 <div className={styles.content}>
                     <p className={styles.text}>
-                        &copy; {new Date().getFullYear()} Zara Thompson. All rights reserved.
-                    </p>
-                    <p className={styles.charity}>
-                        50% of proceeds go to <span className={styles.highlight}>Children's Hospital</span>
+                        &copy; 2025 Zara Thompson.
                     </p>
                 </div>
             </div>

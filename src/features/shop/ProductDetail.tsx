@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/Checkbox';
 import { Clock } from '@phosphor-icons/react';
 import { useMediaQuery } from '@/data/useMediaQuery';
 import { getScarcityForProduct } from '@/data/scarcity';
+import { getAssetUrl } from '@/data/assets'; // UPDATED IMPORT
 import styles from './ProductDetail.module.css';
 
 interface ProductDetailProps {
@@ -27,8 +28,8 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
     
-    // Use high-res image if available, fallback to thumb
-    const displayImage = product.imageFull || product.image;
+    // Resolve image path
+    const displayImage = getAssetUrl(product.imageFull || product.image);
 
     const content = (
         <div className={styles.container}>

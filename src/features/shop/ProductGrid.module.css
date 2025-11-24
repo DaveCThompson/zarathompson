@@ -11,6 +11,6 @@
 @media (max-width: 640px) {
     .grid {
         grid-template-columns: 1fr;
-        padding: var(--space-md);
+        padding: var(--space-sm);
     }
 }

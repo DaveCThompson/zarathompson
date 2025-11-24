@@ -2,10 +2,8 @@
     height: var(--header-height);
     display: flex;
     align-items: center;
-    position: relative; /* Positioned inside the sticky group */
+    position: relative;
     z-index: 10;
-    
-    /* Background is transparent so it shares the group's blur/background */
     background: var(--glass-surface); 
     transition: all 0.3s ease;
 }
@@ -25,6 +23,19 @@
     font-size: 1.75rem;
     color: var(--fg-primary);
     user-select: none;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 var(--space-md);
+    }
+
+    .logo {
+        /* Shrink font to fit "Zara Thompson Art" on iPhone SE/mini */
+        font-size: 1.25rem; 
+    }
 }
 
 .nav {
@@ -33,12 +44,19 @@
     gap: var(--space-lg);
 }
 
+@media (max-width: 600px) {
+    .nav {
+        gap: var(--space-md);
+    }
+}
+
 .link {
     font-family: var(--font-body);
     color: var(--fg-secondary);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
+    font-size: 0.95rem;
 }
 
 .link:hover {

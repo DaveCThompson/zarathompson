@@ -11,7 +11,7 @@ export function Header() {
             <div className={styles.container}>
                 <h1 className={styles.logo}>Zara Thompson Art</h1>
                 <nav className={styles.nav}>
-                    <button 
+                    <button
                         className={styles.themeToggle}
                         onClick={() => setIsDark(!isDark)}
                         aria-label="Toggle Dark Mode"
@@ -22,7 +22,6 @@ export function Header() {
                             <Moon size={24} weight="duotone" />
                         )}
                     </button>
-                    <a href="#" className={styles.link}>Shop</a>
                     <a href="#about" className={styles.link}>About</a>
                 </nav>
             </div>
