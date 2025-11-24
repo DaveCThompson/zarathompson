@@ -1,6 +1,6 @@
 .banner {
-    /* Saturated Glass Look */
-    background-color: oklch(from var(--orb-1) l c h / 0.85);
+    /* Saturated Glass Look - Reduced opacity for better translucency */
+    background-color: transparent;
     color: var(--fg-primary);
     text-align: center;
     padding: var(--space-xs) var(--space-md);
@@ -16,7 +16,6 @@
     justify-content: center;
     align-items: center;
     min-height: 48px;
-    /* Increased for 2 lines */
 }
 
 .content {

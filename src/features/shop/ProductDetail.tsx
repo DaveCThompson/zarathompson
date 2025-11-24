@@ -9,7 +9,7 @@ import { Checkbox } from '@/components/Checkbox';
 import { Clock } from '@phosphor-icons/react';
 import { useMediaQuery } from '@/data/useMediaQuery';
 import { getScarcityForProduct } from '@/data/scarcity';
-import { getAssetUrl } from '@/data/assets'; // UPDATED IMPORT
+import { getAssetUrl } from '@/data/assets';
 import styles from './ProductDetail.module.css';
 
 interface ProductDetailProps {
@@ -27,7 +27,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
 
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
-    
+
     // Resolve image path
     const displayImage = getAssetUrl(product.imageFull || product.image);
 
@@ -39,7 +39,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
             <div className={styles.details}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{product.title}</h2>
-                    <Badge variant="default">${selectedVariant.price.toFixed(2)}</Badge>
+                    {/* Price moved from here */}
                 </div>
 
                 <p className={styles.description}>{product.description}</p>
@@ -52,7 +52,10 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
                 )}
 
                 <div className={styles.variants}>
-                    <label className={styles.label}>Select Option:</label>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <label className={styles.label}>Select Option:</label>
+                        <Badge variant="default">${selectedVariant.price.toFixed(2)}</Badge>
+                    </div>
                     <div className={styles.variantGrid}>
                         {product.variants.map(variant => (
                             <button

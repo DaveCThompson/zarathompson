@@ -4,7 +4,7 @@
     align-items: center;
     position: relative;
     z-index: 10;
-    background: var(--glass-surface); 
+    /* background removed to allow header-group glass to show */
     transition: all 0.3s ease;
 }
 
@@ -23,7 +23,8 @@
     font-size: 1.75rem;
     color: var(--fg-primary);
     user-select: none;
-    white-space: nowrap; /* Prevent wrapping */
+    white-space: nowrap;
+    /* Prevent wrapping */
 }
 
 /* Mobile Adjustments */
@@ -34,7 +35,7 @@
 
     .logo {
         /* Shrink font to fit "Zara Thompson Art" on iPhone SE/mini */
-        font-size: 1.25rem; 
+        font-size: 1.25rem;
     }
 }
 

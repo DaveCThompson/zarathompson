@@ -26,7 +26,7 @@ export function ScarcityCounter({ productId, compact = false }: ScarcityCounterP
             <span style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '0.875rem',
-                color: 'var(--fg-secondary)'
+                color: 'var(--color-scarcity)'
             }}>
                 Only <strong>{stock}</strong> remaining
             </span>

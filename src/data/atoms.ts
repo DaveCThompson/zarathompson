@@ -16,8 +16,27 @@ type StockMap = Record<string, number>;
 
 const generateInitialStock = (): StockMap => {
     const stock: StockMap = {};
+    const today = new Date().toDateString();
+
+    // Simple hash function for deterministic randomness based on date and product ID
+    const hash = (str: string) => {
+        let h = 0;
+        for (let i = 0; i < str.length; i++) {
+            h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+        }
+        return h;
+    };
+
     PRODUCTS.forEach((p) => {
-        stock[p.id] = Math.floor(Math.random() * 5) + 1;
+        const seed = hash(today + p.id);
+        // 40% chance of being low stock (1-5), otherwise high stock (10+)
+        const isLowStock = (Math.abs(seed) % 100) < 40;
+
+        if (isLowStock) {
+            stock[p.id] = (Math.abs(seed) % 5) + 1;
+        } else {
+            stock[p.id] = 10 + (Math.abs(seed) % 20);
+        }
     });
     return stock;
 };

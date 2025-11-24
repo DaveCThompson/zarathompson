@@ -52,13 +52,13 @@ function App() {
         <title>Zara Thompson | Liquid Glass Collection</title>
         <meta name="description" content="A limited series of abstract prints exploring the boundaries of color and light." />
       </Helmet>
-      
+
       <Toaster position="top-center" />
-      
+
       <InteractiveBackground />
 
       <div className="min-h-screen flex flex-col relative z-10">
-        
+
         {/* THE UNIFIED HEADER UNIT */}
         {/* Styles defined in index.css (.header-group) */}
         <div className="header-group">
@@ -80,7 +80,7 @@ function App() {
               marginBottom: 'var(--space-md)',
               textShadow: '0 4px 20px rgba(0,0,0,0.1)'
             }}>
-              Liquid Glass Collection
+              Zara Thompson Art
             </h2>
             <p style={{
               fontFamily: 'var(--font-body)',
@@ -91,11 +91,9 @@ function App() {
               fontSize: '1.125rem',
               lineHeight: '1.6'
             }}>
-              A limited series of abstract prints exploring the boundaries of color and light.
-              <br/>
-              <span style={{ opacity: 0.6, fontSize: '0.9rem' }}>
-                Move your cursor to ripple the glass.
-              </span>
+              A curated collection of digital and physical art pieces designed to inspire.
+              <br />
+              <strong>100% of proceeds go to good causes</strong>—supporting both children's healthcare and Zara's education fund.
             </p>
           </div>
 
