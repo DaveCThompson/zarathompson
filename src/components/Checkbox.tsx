@@ -26,7 +26,7 @@ export function Checkbox({ checked, onCheckedChange, id, label, className }: Che
                 id={id}
             >
                 <CheckboxPrimitive.Indicator className={styles.indicator}>
-                    <Check size={16} weight="duotone" />
+                    <Check size={16} weight="light" />
                 </CheckboxPrimitive.Indicator>
             </CheckboxPrimitive.Root>
             {label && (

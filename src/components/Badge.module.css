@@ -1,25 +1,28 @@
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 2px 8px;
+    padding: 4px 12px; /* Increased padding */
     border-radius: 999px;
-    font-size: 0.75rem;
+    font-size: 0.9rem; /* Increased size */
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 1;
+    font-variant-numeric: tabular-nums;
 }
 
 .default {
     background: var(--surface-glass);
-    border: 1px solid var(--surface-glass-border);
+    border: 1px solid var(--glass-border);
     color: var(--fg-secondary);
     backdrop-filter: blur(4px);
 }
 
 .sale {
-    background: var(--color-sale);
+    background: var(--color-scarcity);
     color: white;
     border: 1px solid transparent;
     box-shadow: 0 2px 8px oklch(63% 0.22 25 / 0.4);
+    font-size: 0.75rem; /* Keep scarcity badges slightly smaller */
+    padding: 2px 8px;
 }

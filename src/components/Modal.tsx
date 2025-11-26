@@ -27,7 +27,7 @@ export function Modal({ open, onOpenChange, children, trigger }: ModalProps) {
                     </div>
                     <Dialog.Close asChild>
                         <button className={styles.closeButton} aria-label="Close">
-                            <X weight="duotone" />
+                            <X weight="light" size={20} />
                         </button>
                     </Dialog.Close>
                 </Dialog.Content>

@@ -11,7 +11,13 @@
 
   /* --- 3. FROSTED GLASS PHYSICS (Light Mode) --- */
   --bg-canvas: oklch(99% 0.005 var(--dynamic-hue));
+  
+  /* Transparent Surface (for overlay cards) */
   --glass-surface: oklch(100% 0 0 / 0.75);
+  
+  /* Opaque Surface (for tooltips/modals requiring occlusion) */
+  --surface-solid: oklch(100% 0 0);
+
   --glass-border: oklch(100% 0 0 / 0.5);
   --glass-highlight: oklch(100% 0 0 / 0.4);
   --glass-shadow: oklch(0% 0 0 / 0.08);
@@ -43,6 +49,7 @@
 .dark {
   --bg-canvas: oklch(8% 0.02 var(--dynamic-hue));
   --glass-surface: oklch(15% 0.02 270 / 0.75);
+  --surface-solid: oklch(15% 0.02 270);
   --glass-border: oklch(100% 0 0 / 0.15);
   --glass-highlight: oklch(100% 0 0 / 0.2);
   --glass-shadow: oklch(0% 0 0 / 0.5);

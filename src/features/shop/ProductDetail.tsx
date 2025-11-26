@@ -1,5 +1,5 @@
 // FILE: src/features/shop/ProductDetail.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Product } from '@/data/products';
 import { Drawer } from '@/components/Drawer';
 import { Modal } from '@/components/Modal';
@@ -22,32 +22,60 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
+    
+    // Image Loading State Machine
     const [isLoaded, setIsLoaded] = useState(false);
+    const [hasError, setHasError] = useState(false);
+
+    // Reset state when product changes
+    useEffect(() => {
+        if (product) {
+            setSelectedVariantId(null);
+            setAgreedToTerms(false);
+            setIsLoaded(false);
+            setHasError(false);
+        }
+    }, [product]);
 
     if (!product) return null;
 
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
 
-    // Resolve image paths
+    // Asset Resolution
     const thumbnailImage = getAssetUrl(product.image);
-    const fullImage = getAssetUrl(product.imageFull || product.image);
+    // If we have an error, fallback to thumbnail. Otherwise try full image.
+    const displayImage = hasError ? thumbnailImage : getAssetUrl(product.variants[0]?.id === 'digital' ? product.image : (product.imageFull || product.image));
+
+    // Logic: Is this a digital product?
+    const isDigital = selectedVariant.isDigital;
 
     const content = (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
-                {/* Low-res blurred thumbnail */}
-                <img
-                    src={thumbnailImage}
-                    alt={product.title}
-                    className={`${styles.image} ${styles.imageBlur}`}
-                />
+                {/* 
+                    Low-res blurred thumbnail 
+                    Only visible while loading AND no error occurred (if error, we show unblurred thumbnail)
+                */}
+                {!hasError && (
+                    <img
+                        src={thumbnailImage}
+                        alt=""
+                        className={`${styles.image} ${styles.imageBlur}`}
+                        aria-hidden="true"
+                    />
+                )}
+                
                 {/* High-res image that fades in */}
                 <img
-                    src={fullImage}
+                    src={displayImage}
                     alt={product.title}
-                    className={`${styles.image} ${styles.imageFull} ${isLoaded ? styles.imageLoaded : ''}`}
+                    className={`${styles.image} ${styles.imageFull} ${isLoaded || hasError ? styles.imageLoaded : ''}`}
                     onLoad={() => setIsLoaded(true)}
+                    onError={() => {
+                        console.warn(`Failed to load high-res image for ${product.id}`);
+                        setHasError(true);
+                    }}
                 />
             </div>
             <div className={styles.details}>
@@ -82,20 +110,28 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
                     </div>
                 </div>
 
-                <div className={styles.terms}>
-                    <Checkbox
-                        id="terms"
-                        checked={agreedToTerms}
-                        onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
-                    />
-                    <label htmlFor="terms" className={styles.termsLabel}>
-                        I agree that this is a digital purchase or print-on-demand item.
-                    </label>
-                </div>
+                {isDigital ? (
+                    <div className={styles.terms}>
+                         <span className={styles.termsLabel}>
+                            ✨ Digital files will be emailed immediately after purchase.
+                        </span>
+                    </div>
+                ) : (
+                    <div className={styles.terms}>
+                        <Checkbox
+                            id="terms"
+                            checked={agreedToTerms}
+                            onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                        />
+                        <label htmlFor="terms" className={styles.termsLabel}>
+                            I understand that prints must be picked up at Royal Oak Middle School.
+                        </label>
+                    </div>
+                )}
 
                 <Button
                     className={styles.buyButton}
-                    disabled={!agreedToTerms}
+                    disabled={!isDigital && !agreedToTerms}
                     onClick={() => window.open(selectedVariant.stripeLink, '_blank')}
                 >
                     Buy Now

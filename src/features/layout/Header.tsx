@@ -9,7 +9,7 @@ export function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.container}>
-                <h1 className={styles.logo}>Zara Thompson Art</h1>
+                <h1 className={styles.logo}>Zara Thompson | Art for Education</h1>
                 <nav className={styles.nav}>
                     <button
                         className={styles.themeToggle}
@@ -22,7 +22,7 @@ export function Header() {
                             <Moon size={24} weight="duotone" />
                         )}
                     </button>
-                    <a href="#about" className={styles.link}>About</a>
+                    {/* Link removed as About is now in Hero */}
                 </nav>
             </div>
         </header>

@@ -34,8 +34,8 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('success') === 'true') {
-      toast.success('Order confirmed! Check your email.', {
-        duration: 5000,
+      toast.success('Thank you for your support! Check your email.', {
+        duration: 8000,
         style: {
           background: 'var(--glass-surface)',
           color: 'var(--fg-primary)',
@@ -50,20 +50,17 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Zara Thompson | Liquid Glass Collection</title>
-        <meta name="description" content="A limited series of abstract prints exploring the boundaries of color and light." />
+        <title>Zara Thompson | Art for Education</title>
+        <meta name="description" content="Art by Zara Thompson. Supporting Education and BC Children's Hospital." />
       </Helmet>
 
       <Toaster position="top-center" />
 
       <InteractiveBackground />
 
-
-
       <div className="min-h-screen flex flex-col relative z-10">
 
         {/* THE UNIFIED HEADER UNIT */}
-        {/* Styles defined in index.css (.header-group) */}
         <div className="header-group">
           <CharityBanner />
           <Header />
@@ -83,20 +80,20 @@ function App() {
               marginBottom: 'var(--space-md)',
               textShadow: '0 4px 20px rgba(0,0,0,0.1)'
             }}>
-              Zara Thompson Art
+              Hi! I'm Zara.
             </h2>
             <p style={{
               fontFamily: 'var(--font-body)',
               color: 'var(--fg-secondary)',
-              maxWidth: '600px',
+              maxWidth: '640px',
               margin: '0 auto',
               marginBottom: 'var(--space-xl)',
               fontSize: '1.125rem',
               lineHeight: '1.6'
             }}>
-              A curated collection of digital and physical art pieces designed to inspire.
-              <br />
-              <strong>100% of proceeds go to good causes</strong>—supporting both children's healthcare and Zara's education fund.
+              I'm a Grade 6student at Royal Oak Middle School. I created this art collection to help fund my future education and support <strong>BC Children's Hospital</strong>.
+              <br /><br />
+              Thank you for helping me make a difference!
             </p>
           </div>
 
