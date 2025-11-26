@@ -22,24 +22,37 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     if (!product) return null;
 
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
 
-    // Resolve image path
-    const displayImage = getAssetUrl(product.imageFull || product.image);
+    // Resolve image paths
+    const thumbnailImage = getAssetUrl(product.image);
+    const fullImage = getAssetUrl(product.imageFull || product.image);
 
     const content = (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
-                <img src={displayImage} alt={product.title} className={styles.image} />
+                {/* Low-res blurred thumbnail */}
+                <img
+                    src={thumbnailImage}
+                    alt={product.title}
+                    className={`${styles.image} ${styles.imageBlur}`}
+                />
+                {/* High-res image that fades in */}
+                <img
+                    src={fullImage}
+                    alt={product.title}
+                    className={`${styles.image} ${styles.imageFull} ${isLoaded ? styles.imageLoaded : ''}`}
+                    onLoad={() => setIsLoaded(true)}
+                />
             </div>
             <div className={styles.details}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{product.title}</h2>
-                    {/* Price moved from here */}
                 </div>
 
                 <p className={styles.description}>{product.description}</p>

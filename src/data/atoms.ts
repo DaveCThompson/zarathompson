@@ -7,10 +7,6 @@ import { PRODUCTS } from './products';
 // Persist dark mode preference. Defaults to false (Light Mode).
 export const darkModeAtom = atomWithStorage<boolean>('zara_dark_mode', false);
 
-// The dynamic hue value (0-360) is now handled by CSS animations, 
-// but we keep this if we need JS access to it later.
-export const themeAtom = atom<number>(0);
-
 // --- SCARCITY ENGINE ---
 type StockMap = Record<string, number>;
 

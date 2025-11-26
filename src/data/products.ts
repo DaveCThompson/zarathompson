@@ -32,7 +32,7 @@ export const PRODUCTS: Product[] = [
         title: 'The Court King',
         description: 'Dominating the court with eagle-eyed precision. A high-energy tribute to the game.',
         image: '/art/thumb_5x7_basketball.webp',
-        imageFull: '/art/5x7_basketball.webp',
+        imageFull: '/art/thumb_5x7_basketball.webp', // Fallback: High-res missing
         basePrice: 2.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -46,7 +46,7 @@ export const PRODUCTS: Product[] = [
         title: 'Pop Star',
         description: 'Explosive energy and stardom. A vibrant tribute to pop culture.',
         image: '/art/thumb_5x7_pop-singer.webp',
-        imageFull: '/art/5x7_pop-singer.webp',
+        imageFull: '/art/thumb_5x7_pop-singer.webp', // Fallback: High-res missing
         basePrice: 2.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },

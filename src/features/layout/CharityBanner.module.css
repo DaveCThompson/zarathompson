@@ -1,28 +1,18 @@
 .banner {
-    /* Saturated Glass Look - Reduced opacity for better translucency */
-    background-color: transparent;
-    color: var(--fg-primary);
+    /* Hue Rotating Gradient - Synced with Global Time */
+    background-image: linear-gradient(to right,
+            oklch(60% 0.2 var(--dynamic-hue)),
+            oklch(60% 0.2 calc(var(--dynamic-hue) + 50)));
+    color: white;
+    /* Ensure text is readable on vibrant background */
     text-align: center;
     padding: var(--space-xs) var(--space-md);
     font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    position: relative;
-    z-index: 20;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    /* Ensure flex context handles centering */
+    /* Flexbox for centering */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 48px;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
 }
 
 .text {
@@ -34,15 +24,21 @@
     gap: 6px;
 }
 
-.icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 1px;
+.infoIcon {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    display: flex;
+    /* Fix alignment */
+}
+
+.infoIcon:hover {
+    opacity: 1;
 }
 
 :global(.dark) .banner {
-    color: oklch(98% 0 0);
-    background-color: oklch(from var(--orb-1) l c h / 0.6);
+    /* Dark mode adjustments if needed, but the gradient is vibrant enough to stand alone */
+    color: white;
 }
 
 @media (max-width: 600px) {

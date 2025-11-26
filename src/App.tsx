@@ -4,6 +4,7 @@ import { Toaster, toast } from 'sonner';
 import { useAtomValue } from 'jotai';
 import { darkModeAtom } from '@/data/atoms';
 import { PRODUCTS, type Product } from '@/data/products';
+
 import { InteractiveBackground } from '@/features/layout/InteractiveBackground';
 import { Header } from '@/features/layout/Header';
 import { Footer } from '@/features/layout/Footer';
@@ -56,6 +57,8 @@ function App() {
       <Toaster position="top-center" />
 
       <InteractiveBackground />
+
+
 
       <div className="min-h-screen flex flex-col relative z-10">
 

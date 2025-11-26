@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   // CRITICAL: Replace 'zarathompson' with your exact GitHub Repository name.
   // If your repo is https://github.com/DaveCThompson/my-art, this should be '/my-art/'
-  base: '/zarathompson/', 
+  base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
