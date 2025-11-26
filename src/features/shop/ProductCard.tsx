@@ -42,7 +42,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
                     <div className={styles.badgeOverlay} style={{
                         position: 'absolute',
                         top: '12px',
-                        left: '12px',
+                        right: '12px',
                         background: 'var(--color-scarcity)',
                         color: 'white',
                         padding: '6px 12px',
