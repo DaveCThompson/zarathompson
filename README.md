@@ -16,7 +16,7 @@ It features a playful, "Liquid Glass" aesthetic using animated OKLCH color manip
 *   **State:** Jotai (Atomic State)
 *   **Animation:** Framer Motion
 *   **Icons:** Phosphor Icons
-*   **Deployment:** GitHub Pages
+*   **Deployment:** GitHub Pages (Custom Domain)
 
 ### Key Features
 *   **Dynamic OKLCH Engine:** The entire site's color palette rotates through a hue cycle (`0-360`) at 60fps. All UI elements derive their color from this single source of truth.
@@ -64,7 +64,12 @@ We strictly adhere to React 18 patterns.
 
 ## 4. Deployment
 
-This project is configured for **GitHub Pages**.
+This project is configured for **GitHub Pages** with a custom domain (`zarathompson.com`).
+
+**Prerequisites:**
+1.  DNS (Cloudflare): `A` records point to GitHub IPs, `CNAME www` points to `[user].github.io`.
+2.  Repository Settings: Pages enabled on `gh-pages` branch. Custom domain set to `zarathompson.com`.
+3.  **Critical:** The file `public/CNAME` must exist in the repo containing the domain name.
 
 ```bash
 # Build and Deploy
