@@ -28,12 +28,11 @@ const STRIPE_LINKS = {
 
 export const PRODUCTS: Product[] = [
     {
-        id: 'poster-5',
-        title: 'I need a hug',
-        description: 'A warm embrace in visual form. Soft textures and comforting hues.',
-        // Updated to use local files from public/art/
-        image: '/art/poster-5-thumb.webp',
-        imageFull: '/art/poster-5-full.webp',
+        id: 'basketball',
+        title: 'The Court King',
+        description: 'Dominating the court with eagle-eyed precision. A high-energy tribute to the game.',
+        image: '/art/thumb_5x7_basketball.webp',
+        imageFull: '/art/5x7_basketball.webp',
         basePrice: 2.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -43,11 +42,11 @@ export const PRODUCTS: Product[] = [
         ],
     },
     {
-        id: 'poster-6',
+        id: 'pop-singer',
         title: 'Pop Star',
         description: 'Explosive energy and stardom. A vibrant tribute to pop culture.',
-        image: '/art/poster-6-thumb.webp',
-        imageFull: '/art/poster-6-full.webp',
+        image: '/art/thumb_5x7_pop-singer.webp',
+        imageFull: '/art/5x7_pop-singer.webp',
         basePrice: 2.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -57,11 +56,39 @@ export const PRODUCTS: Product[] = [
         ],
     },
     {
-        id: 'poster-7',
+        id: 'pug-blue',
+        title: 'I Need A Hug (Blue)',
+        description: 'A soulful gaze that tugs at the heartstrings. Set against a calming blue backdrop.',
+        image: '/art/thumb_5x7_pug-blue.webp',
+        imageFull: '/art/5x7_pug-blue.webp',
+        basePrice: 2.00,
+        variants: [
+            { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
+            { id: 'print-5x7', label: '5x7 Print', price: 3.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_5x7 },
+            { id: 'print-10x8', label: '10x8 Print', price: 6.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_10x8 },
+            { id: 'print-21x33', label: '21x33 Print', price: 35.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_21x33 },
+        ],
+    },
+    {
+        id: 'pug-pink',
+        title: 'I Need A Hug (Pink)',
+        description: 'Irresistible charm in a warm embrace. A cozy pink setting for a lovable friend.',
+        image: '/art/thumb_5x7_pug-pink.webp',
+        imageFull: '/art/5x7_pug-pink.webp',
+        basePrice: 2.00,
+        variants: [
+            { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
+            { id: 'print-5x7', label: '5x7 Print', price: 3.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_5x7 },
+            { id: 'print-10x8', label: '10x8 Print', price: 6.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_10x8 },
+            { id: 'print-21x33', label: '21x33 Print', price: 35.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_21x33 },
+        ],
+    },
+    {
+        id: 'soccer',
         title: 'The Royal Striker',
-        description: 'Regal and commanding. A powerful composition in gold and deep purple.',
-        image: '/art/poster-7-thumb.webp',
-        imageFull: '/art/poster-7-full.webp',
+        description: 'Regal and commanding on the pitch. A powerful composition of athleticism and grace.',
+        image: '/art/thumb_5x7_soccer.webp',
+        imageFull: '/art/5x7_soccer.webp',
         basePrice: 2.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -71,11 +98,11 @@ export const PRODUCTS: Product[] = [
         ],
     },
     {
-        id: 'poster-8',
-        title: 'The Soaring Sunk',
-        description: 'A paradoxical masterpiece. Gravity-defying elements meeting the horizon.',
-        image: '/art/poster-8-thumb.webp',
-        imageFull: '/art/poster-8-full.webp',
+        id: 'volleyball',
+        title: 'The Soaring Spike',
+        description: 'Gravity-defying action at the net. Capturing the peak moment of the game.',
+        image: '/art/thumb_5x7_volleyball.webp',
+        imageFull: '/art/5x7_volleyball.webp',
         basePrice: 2.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 2.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -84,15 +111,15 @@ export const PRODUCTS: Product[] = [
             { id: 'print-21x33', label: '21x33 Print', price: 35.00, isDigital: false, stripeLink: STRIPE_LINKS.PRINT_21x33 },
         ],
     },
-    {
-        id: 'custom',
-        title: 'Custom Commission',
-        description: 'Your idea brought to life! We will work with you to create a unique piece.',
-        image: '/art/custom-thumb.webp',
-        imageFull: '/art/custom-full.webp',
-        basePrice: 15.00,
-        variants: [
-            { id: 'custom-req', label: 'Commission Request', price: 15.00, isDigital: false, stripeLink: STRIPE_LINKS.CUSTOM },
-        ],
-    },
+    // {
+    //     id: 'custom',
+    //     title: 'Custom Commission',
+    //     description: 'Your idea brought to life! We will work with you to create a unique piece.',
+    //     image: '/art/custom-thumb.webp',
+    //     imageFull: '/art/custom-full.webp',
+    //     basePrice: 15.00,
+    //     variants: [
+    //         { id: 'custom-req', label: 'Commission Request', price: 15.00, isDigital: false, stripeLink: STRIPE_LINKS.CUSTOM },
+    //     ],
+    // },
 ];
