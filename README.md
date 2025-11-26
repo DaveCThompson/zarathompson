@@ -1,8 +1,8 @@
-# Zara Thompson Art
+# Zara Thompson | Art for Education
 
-**Zarathompson.com** is a high-craft, single-page e-commerce portfolio for a student artist. It features a playful, "Liquid Glass" aesthetic using animated OKLCH color manipulation and fluid Framer Motion transitions.
+**Zarathompson.com** is a high-craft, single-page fundraising platform for a Grade 7 student artist. The site allows users to purchase physical posters (for local school pickup) or digital downloads to support **BC Children's Hospital** and the artist's education fund.
 
-The site allows users to purchase physical posters (for local pickup) or digital downloads via Stripe Payment Links.
+It features a playful, "Liquid Glass" aesthetic using animated OKLCH color manipulation and fluid Framer Motion transitions.
 
 ---
 
@@ -19,15 +19,16 @@ The site allows users to purchase physical posters (for local pickup) or digital
 *   **Deployment:** GitHub Pages
 
 ### Key Features
-*   **Dynamic OKLCH Engine:** The entire site's color palette rotates through a hue cycle (`0-360`) at 60fps. All UI elements derive their color from this single source of truth via CSS variables.
-*   **Scarcity Engine:** A client-side simulation (persisted via LocalStorage) that generates deterministic "low stock" alerts based on the date.
-*   **Intentionally Flatter:** The project structure is kept shallow to maximize readability.
+*   **Dynamic OKLCH Engine:** The entire site's color palette rotates through a hue cycle (`0-360`) at 60fps. All UI elements derive their color from this single source of truth.
+*   **Charity Transparency:** Integrated tooltips and copy clarify the "100% of proceeds" allocation (Children's Health + Education).
+*   **Scarcity Engine:** A client-side simulation (persisted via LocalStorage) that generates deterministic "low stock" alerts to drive conversion.
+*   **Local Fulfillment Logic:** Smart UI that toggles between "School Pickup" acknowledgments (for prints) and "Email Delivery" notices (for digital).
 
 ---
 
 ## 2. Directory Structure
 
-This project follows a feature-based, flat architecture.
+This project follows a feature-based, flat architecture ("Intentionally Flatter").
 
 *   **/src/data**: The central hub for all logic, data, and hooks.
     *   `products.ts`: Product definitions and Stripe links.

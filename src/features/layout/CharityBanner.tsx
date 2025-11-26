@@ -7,12 +7,12 @@ export function CharityBanner() {
         <div className={styles.banner}>
             <div className={styles.content}>
                 <p className={styles.text}>
-                    <strong>50% of proceeds go to Children's Hospital.</strong>
+                    <strong>100% of proceeds support Children's Health & Education.</strong>
                     <Tooltip
                         content={
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                <span>❤️ 50% donated to BC Children's Hospital.</span>
-                                <span>📚 50% goes to Zara's Education Fund.</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', textAlign: 'left' }}>
+                                <span>❤️ A portion of proceeds is donated to BC Children's Hospital.</span>
+                                <span>📚 All remaining proceeds go to Zara's Education Fund.</span>
                             </div>
                         }
                     >

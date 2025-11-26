@@ -26,10 +26,9 @@ All colors are derived from a single hue variable `var(--dynamic-hue)`.
 *   `--fg-accent`: Bright accent color for calls to action.
 
 **Derived Surface Variables (Critical for Glassmorphism):**
-*   `--bg-surface`: `oklch(100% 0 0 / 0.6)` - The main glass panel background.
-*   `--bg-subtle`: `oklch(96% 0.01 H)` - For skeleton states and secondary areas.
-*   `--border-subtle`: `oklch(100% 0 0 / 0.4)` - The glass edge.
-*   `--bg-hover`: `oklch(100% 0 0 / 0.1)` - Interactive hover states.
+*   `--surface-glass`: `oklch(100% 0 0 / 0.6)` - The main glass panel background (Transparent).
+*   `--surface-solid`: `oklch(100% 0 0)` - The opaque version. **Use for Tooltips, Modals, and Mobile Drawers to prevent layering artifacts.**
+*   `--glass-border`: `oklch(100% 0 0 / 0.4)` - The glass edge.
 
 **The Rule:** Always use these variables. Never hardcode colors.
 
@@ -39,8 +38,9 @@ To create a glass panel, use this standard combination:
 
 ```css
 .glass-panel {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  background: var(--surface-glass);
+  border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border-radius: var(--radius-blob);
 }

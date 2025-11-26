@@ -1,5 +1,4 @@
 // FILE: src/data/atoms.ts
-import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { PRODUCTS } from './products';
 

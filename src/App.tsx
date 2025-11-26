@@ -91,7 +91,7 @@ function App() {
               fontSize: '1.125rem',
               lineHeight: '1.6'
             }}>
-              I'm a Grade 6student at Royal Oak Middle School. I created this art collection to help fund my future education and support <strong>BC Children's Hospital</strong>.
+              I'm a Grade 6 tudent at Royal Oak Middle School. I created this art collection to help fund my future education and support <strong>Children's Health</strong>.
               <br /><br />
               Thank you for helping me make a difference!
             </p>
