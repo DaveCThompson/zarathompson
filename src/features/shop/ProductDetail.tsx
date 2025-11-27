@@ -22,7 +22,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
-    
+
     // Image Loading State Machine
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
@@ -63,9 +63,11 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
                         alt=""
                         className={`${styles.image} ${styles.imageBlur}`}
                         aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
                     />
                 )}
-                
+
                 {/* High-res image that fades in */}
                 <img
                     src={displayImage}
@@ -76,6 +78,8 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
                         console.warn(`Failed to load high-res image for ${product.id}`);
                         setHasError(true);
                     }}
+                    loading="lazy"
+                    decoding="async"
                 />
             </div>
             <div className={styles.details}>
@@ -112,7 +116,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
 
                 {isDigital ? (
                     <div className={styles.terms}>
-                         <span className={styles.termsLabel}>
+                        <span className={styles.termsLabel}>
                             ✨ Digital files will be emailed immediately after purchase.
                         </span>
                     </div>

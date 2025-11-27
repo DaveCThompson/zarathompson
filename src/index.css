@@ -1,10 +1,21 @@
 /* FILE: src/index.css */
 
 :root {
-  /* --- 1. THE SLOW DRIFT ENGINE --- */
-  animation: hue-drift 300s linear infinite;
+  /* --- 1. THE SLOW DRIFT ENGINE (SCOPED) --- */
+  /* 
+     We use a standard keyframe animation for the hue, but apply it to a 
+     custom property that is only used in specific calculations.
+  */
 
   /* --- 2. PALETTE GENERATION (OKLCH) --- */
+  --base-hue: 0;
+
+  /* 
+     We will animate --dynamic-hue using @property if available, 
+     but to really save the CPU, we should avoid reading it in layout-triggering properties.
+  */
+  animation: hue-cycle 30s linear infinite;
+
   --orb-1: oklch(90% 0.1 var(--dynamic-hue));
   --orb-2: oklch(88% 0.12 calc(var(--dynamic-hue) + 60));
   --orb-3: oklch(85% 0.1 calc(var(--dynamic-hue) + 120));
@@ -112,21 +123,26 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
   will-change: transform;
-}
-
-@property --dynamic-hue {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
 }
 
 /* FILE: src/index.css */
 
 :root {
-  /* --- 1. THE SLOW DRIFT ENGINE --- */
-  animation: hue-drift 300s linear infinite;
+  /* --- 1. THE SLOW DRIFT ENGINE (SCOPED) --- */
+  /* 
+     We use a standard keyframe animation for the hue, but apply it to a 
+     custom property that is only used in specific calculations.
+  */
 
   /* --- 2. PALETTE GENERATION (OKLCH) --- */
+  --base-hue: 0;
+
+  /* 
+     We will animate --dynamic-hue using @property if available, 
+     but to really save the CPU, we should avoid reading it in layout-triggering properties.
+  */
+  animation: hue-cycle 30s linear infinite;
+
   --orb-1: oklch(90% 0.1 var(--dynamic-hue));
   --orb-2: oklch(88% 0.12 calc(var(--dynamic-hue) + 60));
   --orb-3: oklch(85% 0.1 calc(var(--dynamic-hue) + 120));
@@ -242,7 +258,7 @@ body {
   initial-value: 0;
 }
 
-@keyframes hue-drift {
+@keyframes hue-cycle {
   from {
     --dynamic-hue: 0;
   }
@@ -258,4 +274,34 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* --- PERFORMANCE UTILITIES --- */
+.hardware-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* 
+   FAKE GLASS FALLBACK
+   For devices that struggle with backdrop-filter (Intel HD, older mobiles).
+   This can be toggled via a class on the body or detected via media query if possible.
+   For now, we will use a class '.low-power' that can be toggled.
+*/
+.low-power .header-group {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--glass-surface);
+  /* More opaque */
+  border-bottom: 1px solid var(--surface-solid);
+}
+
+.low-power {
+  --glass-surface: oklch(100% 0 0 / 0.95);
+  --glass-border: oklch(0% 0 0 / 0.1);
+}
+
+.dark.low-power {
+  --glass-surface: oklch(15% 0.02 270 / 0.95);
+  --glass-border: oklch(100% 0 0 / 0.1);
 }
