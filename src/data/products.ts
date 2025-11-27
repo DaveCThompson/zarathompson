@@ -20,10 +20,10 @@ export interface Product {
 
 // TODO: Replace these with your actual Stripe Payment Links once generated
 const STRIPE_LINKS = {
-    DIGITAL: 'https://buy.stripe.com/test_digital',
-    PRINT_5x7: 'https://buy.stripe.com/test_5x7',
-    PRINT_10x8: 'https://buy.stripe.com/test_10x8',
-    PRINT_21x33: 'https://buy.stripe.com/test_21x33',
+    DIGITAL: 'https://buy.stripe.com/dRm14mbD6fZE5oG3tyeME02',
+    PRINT_5x7: 'https://buy.stripe.com/3cI4gy5eIfZEeZg5BGeME03',
+    PRINT_10x8: 'https://buy.stripe.com/00w14mePidRwcR84xCeME01',
+    PRINT_21x33: 'https://buy.stripe.com/dRm8wO4aEcNsdVc3tyeME05',
 };
 
 export const PRODUCTS: Product[] = [
