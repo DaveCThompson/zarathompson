@@ -16,9 +16,22 @@ export function CharityBanner() {
                             </div>
                         }
                     >
-                        <span className={styles.infoIcon}>
+                        <button
+                            type="button"
+                            className={`${styles.infoIcon} no-select`}
+                            aria-label="More information about donations"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                padding: 0,
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                color: 'inherit'
+                            }}
+                        >
                             <Info size={22} weight="fill" />
-                        </span>
+                        </button>
                     </Tooltip>
                 </p>
             </div>

@@ -39,7 +39,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
                 />
 
                 {isLowStock && (
-                    <div className={styles.badgeOverlay} style={{
+                    <div className={`${styles.badgeOverlay} no-select`} style={{
                         position: 'absolute',
                         top: '12px',
                         right: '12px',
@@ -57,7 +57,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
                     </div>
                 )}
 
-                <div className={styles.badgeContainer}>
+                <div className={`${styles.badgeContainer} no-select`}>
                     <ScarcityCounter productId={product.id} compact />
                 </div>
             </div>
@@ -67,7 +67,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
                 <div className={styles.footer}>
                     <span className={styles.price}>From ${product.basePrice.toFixed(2)}</span>
                     <div className={styles.action}>
-                        <span className={styles.actionText}>View</span>
+                        <span className={`${styles.actionText} no-select`}>View</span>
                         <ArrowRight size={20} weight="duotone" />
                     </div>
                 </div>

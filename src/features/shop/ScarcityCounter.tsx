@@ -22,7 +22,9 @@ export function ScarcityCounter({ productId, compact = false }: ScarcityCounterP
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Badge variant="sale">Low Stock</Badge>
+            <div className="no-select">
+                <Badge variant="sale">Low Stock</Badge>
+            </div>
             <span style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '0.875rem',
