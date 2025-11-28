@@ -6,6 +6,7 @@ import { Modal } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { Badge } from '@/components/Badge';
 import { Checkbox } from '@/components/Checkbox';
+import { GlassSkeleton } from '@/components/GlassSkeleton';
 import { Clock, Spinner } from '@phosphor-icons/react';
 import { useMediaQuery } from '@/data/useMediaQuery';
 import { getScarcityForProduct } from '@/data/scarcity';
@@ -23,6 +24,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [isRedirecting, setIsRedirecting] = useState(false);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     // Reset state when product changes
     useEffect(() => {
@@ -30,6 +32,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
             setSelectedVariantId(null);
             setAgreedToTerms(false);
             setIsRedirecting(false);
+            setIsImageLoaded(false);
         }
     }, [product]);
 
@@ -51,15 +54,32 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const content = (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
-                {/* Standard Image - No Shared Layout Animation */}
+                {/* Skeleton Overlay - Visible until image loads */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        opacity: isImageLoaded ? 0 : 1,
+                        transition: 'opacity 0.4s ease',
+                        pointerEvents: 'none',
+                        zIndex: 1
+                    }}
+                >
+                    <GlassSkeleton />
+                </div>
+
+                {/* Eagerly Loaded Image */}
                 <img
                     src={displayImage}
                     alt={product.title}
-                    className={styles.image}
-                    loading="lazy"
+                    className={`${styles.image} ${isImageLoaded ? styles.loaded : ''}`}
+                    loading="eager" 
+                    fetchPriority="high"
                     decoding="async"
+                    onLoad={() => setIsImageLoaded(true)}
                 />
             </div>
+            
             <div className={styles.details}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{product.title}</h2>
@@ -95,7 +115,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
                 {isDigital ? (
                     <div className={styles.terms}>
                         <span className={styles.termsLabel}>
-                            ✨ Digital files will be emailed after purchase.
+                            ✨ Digital files will be emailed immediately after purchase.
                         </span>
                     </div>
                 ) : (

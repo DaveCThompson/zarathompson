@@ -1,3 +1,4 @@
+// FILE: src/features/layout/CharityBanner.tsx
 import styles from './CharityBanner.module.css';
 import { Info } from '@phosphor-icons/react';
 import { Tooltip } from '@/components/Tooltip';

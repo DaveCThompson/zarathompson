@@ -48,6 +48,17 @@
   --font-body: 'Geist', sans-serif;
 }
 
+/* --- MOBILE OVERRIDES --- */
+@media (max-width: 768px) {
+  :root {
+    /* Tighten spacing for intimate mobile feel */
+    --space-lg: 1rem;
+    --space-xl: 2rem;
+    --header-height: 64px;
+    --radius-blob: 16px;
+  }
+}
+
 /* --- DARK MODE OVERRIDES --- */
 .dark {
   --bg-canvas: oklch(8% 0.02 var(--dynamic-hue));

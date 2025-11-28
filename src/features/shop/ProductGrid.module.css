@@ -1,5 +1,8 @@
+/* FILE: src/features/shop/ProductGrid.module.css */
+
 .grid {
     display: grid;
+    /* Desktop: Auto-fill but minimum 280px */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-lg);
     padding: var(--space-lg) 0;
@@ -10,7 +13,9 @@
 
 @media (max-width: 640px) {
     .grid {
+        /* Mobile: Single column, full width */
         grid-template-columns: 1fr;
-        padding: var(--space-sm);
+        padding: var(--space-sm) 0;
+        gap: var(--space-md);
     }
 }

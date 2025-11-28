@@ -1,10 +1,11 @@
+/* FILE: src/features/layout/Header.module.css */
+
 .header {
     height: var(--header-height);
     display: flex;
     align-items: center;
     position: relative;
     z-index: 10;
-    /* background removed to allow header-group glass to show */
     transition: all 0.3s ease;
 }
 
@@ -24,44 +25,12 @@
     color: var(--fg-primary);
     user-select: none;
     white-space: nowrap;
-    /* Prevent wrapping */
-}
-
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-    .container {
-        padding: 0 var(--space-md);
-    }
-
-    .logo {
-        /* Shrink font to fit "Zara Thompson Art" on iPhone SE/mini */
-        font-size: 1.25rem;
-    }
 }
 
 .nav {
     display: flex;
     align-items: center;
     gap: var(--space-lg);
-}
-
-@media (max-width: 600px) {
-    .nav {
-        gap: var(--space-md);
-    }
-}
-
-.link {
-    font-family: var(--font-body);
-    color: var(--fg-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-    font-size: 0.95rem;
-}
-
-.link:hover {
-    color: var(--fg-primary);
 }
 
 .themeToggle {
@@ -75,9 +44,31 @@
     padding: var(--space-xs);
     border-radius: 50%;
     transition: all 0.2s ease;
+    /* Ensure minimum touch target size */
+    min-width: 44px; 
+    min-height: 44px;
 }
 
 .themeToggle:hover {
     color: var(--fg-primary);
     background: var(--glass-border);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-lg); /* Matches tightened --space-lg from index.css */
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .logoTagline {
+        display: none;
+    }
+
+    .nav {
+        gap: var(--space-md);
+    }
 }

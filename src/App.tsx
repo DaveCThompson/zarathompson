@@ -14,6 +14,7 @@ import { Footer } from '@/features/layout/Footer';
 import { ProductGrid } from '@/features/shop/ProductGrid';
 import { CharityBanner } from '@/features/layout/CharityBanner';
 import { SuccessModal } from '@/features/layout/SuccessModal';
+import styles from './App.module.css';
 
 const ProductDetail = lazy(() => import('@/features/shop/ProductDetail').then(module => ({ default: module.ProductDetail })));
 
@@ -60,7 +61,7 @@ function App() {
           angle: 60,
           spread: 55,
           origin: { x: 0 },
-          colors: ['#ff0000', '#00ff00', '#0000ff'] // Simplified colors, or use OKLCH equivalent hexes if needed
+          colors: ['#ff0000', '#00ff00', '#0000ff']
         });
         confetti({
           particleCount: 5,
@@ -121,49 +122,21 @@ function App() {
           <Header />
         </div>
 
-        <main style={{ flex: 1, padding: '0 var(--space-lg)' }}>
-          <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            paddingTop: 'var(--space-xl)',
-            textAlign: 'center'
-          }}>
+        <main className={styles.main}>
+          <div className={styles.hero}>
             {/* AVATAR SECTION */}
-            <div style={{
-                width: '120px',
-                height: '120px',
-                margin: '0 auto var(--space-md)',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '4px solid var(--glass-border)',
-                boxShadow: '0 8px 32px var(--glass-shadow)',
-                background: 'var(--glass-surface)'
-            }}>
+            <div className={styles.avatar}>
                 <img 
                     src={getAssetUrl('/assets/zara-avatar.webp')} 
                     alt="Zara Thompson"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    className={styles.avatarImg}
                 />
             </div>
 
-            <h2 style={{
-              fontFamily: 'var(--font-brand)',
-              fontSize: '3.5rem',
-              color: 'var(--fg-primary)',
-              marginBottom: 'var(--space-md)',
-              textShadow: '0 4px 20px rgba(0,0,0,0.1)'
-            }}>
+            <h2 className={styles.title}>
               Hi! I'm Zara.
             </h2>
-            <p style={{
-              fontFamily: 'var(--font-body)',
-              color: 'var(--fg-secondary)',
-              maxWidth: '640px',
-              margin: '0 auto',
-              marginBottom: 'var(--space-xl)',
-              fontSize: '1.125rem',
-              lineHeight: '1.6'
-            }}>
+            <p className={styles.text}>
               I'm a Grade 6 student at Royal Oak Middle School. I created this art collection to help fund my future education and support <strong>Children's Health</strong>.
               <br /><br />
               Thank you for helping me make a difference!

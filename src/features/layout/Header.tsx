@@ -1,3 +1,4 @@
+// FILE: src/features/layout/Header.tsx
 import { useAtom } from 'jotai';
 import { darkModeAtom } from '@/data/atoms';
 import { Sun, Moon } from '@phosphor-icons/react';
@@ -9,7 +10,10 @@ export function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.container}>
-                <h1 className={styles.logo}>Zara Thompson | Art for Education</h1>
+                <h1 className={styles.logo}>
+                    <span>Zara Thompson</span>
+                    <span className={styles.logoTagline}> | Art for Education</span>
+                </h1>
                 <nav className={styles.nav}>
                     <button
                         className={styles.themeToggle}
@@ -22,7 +26,6 @@ export function Header() {
                             <Moon size={24} weight="duotone" />
                         )}
                     </button>
-                    {/* Link removed as About is now in Hero */}
                 </nav>
             </div>
         </header>
