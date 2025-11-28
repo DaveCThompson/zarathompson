@@ -33,6 +33,7 @@
 
     /* PERFORMANCE: Containment */
     contain: paint layout;
+    will-change: transform;
 }
 
 /* HOVER STATE: Gentle Lift */
@@ -56,7 +57,6 @@
     overflow: hidden;
     /* Clean separation from the card edge */
     margin: 0;
-    width: 100%;
     border-bottom: 1px solid var(--glass-border);
 
     background: var(--glass-border);
@@ -66,9 +66,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
-    /* Remove mix-blend-mode for better clarity in Frosted style */
+    /* Hardware acceleration hint for smooth scaling */
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+    /* Base opacity */
     opacity: 0.95;
+}
+
+.imageLoading {
+    opacity: 0 !important;
+    /* Force hidden while loading */
 }
 
 .card:hover .image {

@@ -1,4 +1,5 @@
 // FILE: src/features/shop/ProductCard.tsx
+import { useState } from 'react';
 import type { Product } from '@/data/products';
 import { ScarcityCounter } from './ScarcityCounter';
 import { getAssetUrl } from '@/data/assets';
@@ -6,13 +7,17 @@ import styles from './ProductCard.module.css';
 import { ArrowRight } from '@phosphor-icons/react';
 import { useAtomValue } from 'jotai';
 import { scarcityAtom } from '@/data/atoms';
+import { GlassSkeleton } from '@/components/GlassSkeleton';
+import { Badge } from '@/components/Badge';
 
 interface ProductCardProps {
     product: Product;
     onClick: (product: Product) => void;
+    priority?: boolean;
 }
 
-export function ProductCard({ product, onClick }: ProductCardProps) {
+export function ProductCard({ product, onClick, priority = false }: ProductCardProps) {
+    const [isLoaded, setIsLoaded] = useState(false);
     const stockMap = useAtomValue(scarcityAtom);
     const stock = stockMap[product.id];
 
@@ -30,30 +35,38 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             aria-label={`View details for ${product.title}`}
         >
             <div className={styles.imageContainer}>
+                {/* Skeleton Overlay - Fades out when loaded */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        opacity: isLoaded ? 0 : 1,
+                        transition: 'opacity 0.5s ease',
+                        pointerEvents: 'none',
+                        zIndex: 1
+                    }}
+                >
+                    <GlassSkeleton />
+                </div>
+
                 <img
                     src={getAssetUrl(product.image)}
                     alt=""
-                    className={styles.image}
-                    loading="lazy"
-                    decoding="async"
+                    className={`${styles.image} ${!isLoaded ? styles.imageLoading : ''}`}
+                    loading={priority ? "eager" : "lazy"}
+                    decoding={priority ? "auto" : "async"}
+                    fetchPriority={priority ? "high" : "auto"}
+                    onLoad={() => setIsLoaded(true)}
                 />
 
                 {isLowStock && (
-                    <div className={`${styles.badgeOverlay} no-select`} style={{
+                    <div className={styles.badgeOverlay} style={{
                         position: 'absolute',
                         top: '12px',
                         right: '12px',
-                        background: 'var(--color-scarcity)',
-                        color: 'white',
-                        padding: '6px 12px',
-                        borderRadius: '12px', /* Concentric: 24px card radius - 12px margin */
-                        fontWeight: 'bold',
-                        fontSize: '0.75rem',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                        zIndex: 20,
-                        letterSpacing: '0.05em'
+                        zIndex: 20
                     }}>
-                        {badgeText}
+                        <Badge variant="sale">{badgeText}</Badge>
                     </div>
                 )}
 

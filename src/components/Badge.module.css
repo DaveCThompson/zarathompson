@@ -1,9 +1,9 @@
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 4px 12px; /* Increased padding */
+    padding: 4px 12px;
     border-radius: 999px;
-    font-size: 0.9rem; /* Increased size */
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -19,10 +19,11 @@
 }
 
 .sale {
-    background: var(--color-scarcity);
+    /* Hardened Contrast for Accessibility */
+    background: oklch(from var(--color-scarcity) l c h / 0.95);
     color: white;
-    border: 1px solid transparent;
+    border: 1px solid white;
     box-shadow: 0 2px 8px oklch(63% 0.22 25 / 0.4);
-    font-size: 0.75rem; /* Keep scarcity badges slightly smaller */
+    font-size: 0.75rem;
     padding: 2px 8px;
 }

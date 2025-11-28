@@ -11,11 +11,12 @@ interface ProductGridProps {
 export function ProductGrid({ products, onProductSelect }: ProductGridProps) {
     return (
         <div className={styles.grid}>
-            {products.map((product) => (
+            {products.map((product, index) => (
                 <ProductCard
                     key={product.id}
                     product={product}
                     onClick={onProductSelect}
+                    priority={index < 4}
                 />
             ))}
         </div>

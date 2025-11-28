@@ -1,4 +1,6 @@
 /* FILE: src/index.css */
+@import '@fontsource/pacifico';
+@import '@fontsource/geist-sans';
 
 :root {
   /* --- 1. THE SLOW DRIFT ENGINE (SCOPED) --- */
