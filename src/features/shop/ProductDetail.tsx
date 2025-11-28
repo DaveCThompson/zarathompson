@@ -6,7 +6,7 @@ import { Modal } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { Badge } from '@/components/Badge';
 import { Checkbox } from '@/components/Checkbox';
-import { Clock } from '@phosphor-icons/react';
+import { Clock, Spinner } from '@phosphor-icons/react';
 import { useMediaQuery } from '@/data/useMediaQuery';
 import { getScarcityForProduct } from '@/data/scarcity';
 import { getAssetUrl } from '@/data/assets';
@@ -22,18 +22,14 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
-
-    // Image Loading State Machine
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [hasError, setHasError] = useState(false);
+    const [isRedirecting, setIsRedirecting] = useState(false);
 
     // Reset state when product changes
     useEffect(() => {
         if (product) {
             setSelectedVariantId(null);
             setAgreedToTerms(false);
-            setIsLoaded(false);
-            setHasError(false);
+            setIsRedirecting(false);
         }
     }, [product]);
 
@@ -41,43 +37,25 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
 
     const selectedVariant = product.variants.find(v => v.id === selectedVariantId) || product.variants[0];
     const scarcity = getScarcityForProduct(product.id);
-
-    // Asset Resolution
-    const thumbnailImage = getAssetUrl(product.image);
-    // If we have an error, fallback to thumbnail. Otherwise try full image.
-    const displayImage = hasError ? thumbnailImage : getAssetUrl(product.variants[0]?.id === 'digital' ? product.image : (product.imageFull || product.image));
-
-    // Logic: Is this a digital product?
+    const displayImage = getAssetUrl(product.image);
     const isDigital = selectedVariant.isDigital;
+
+    const handleBuy = () => {
+        setIsRedirecting(true);
+        setTimeout(() => {
+            window.open(selectedVariant.stripeLink, '_blank');
+            setIsRedirecting(false);
+        }, 800); 
+    };
 
     const content = (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
-                {/* 
-                    Low-res blurred thumbnail 
-                    Only visible while loading AND no error occurred (if error, we show unblurred thumbnail)
-                */}
-                {!hasError && (
-                    <img
-                        src={thumbnailImage}
-                        alt=""
-                        className={`${styles.image} ${styles.imageBlur}`}
-                        aria-hidden="true"
-                        loading="lazy"
-                        decoding="async"
-                    />
-                )}
-
-                {/* High-res image that fades in */}
+                {/* Standard Image - No Shared Layout Animation */}
                 <img
                     src={displayImage}
                     alt={product.title}
-                    className={`${styles.image} ${styles.imageFull} ${isLoaded || hasError ? styles.imageLoaded : ''}`}
-                    onLoad={() => setIsLoaded(true)}
-                    onError={() => {
-                        console.warn(`Failed to load high-res image for ${product.id}`);
-                        setHasError(true);
-                    }}
+                    className={styles.image}
                     loading="lazy"
                     decoding="async"
                 />
@@ -117,7 +95,7 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
                 {isDigital ? (
                     <div className={styles.terms}>
                         <span className={styles.termsLabel}>
-                            ✨ Digital files will be emailed immediately after purchase.
+                            ✨ Digital files will be emailed after purchase.
                         </span>
                     </div>
                 ) : (
@@ -135,10 +113,16 @@ export function ProductDetail({ product, open, onOpenChange }: ProductDetailProp
 
                 <Button
                     className={styles.buyButton}
-                    disabled={!isDigital && !agreedToTerms}
-                    onClick={() => window.open(selectedVariant.stripeLink, '_blank')}
+                    disabled={(!isDigital && !agreedToTerms) || isRedirecting}
+                    onClick={handleBuy}
                 >
-                    Buy Now
+                    {isRedirecting ? (
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Spinner className="animate-spin" /> Redirecting...
+                        </span>
+                    ) : (
+                        'Buy Now'
+                    )}
                 </Button>
             </div>
         </div>

@@ -4,18 +4,9 @@
 
 :root {
   /* --- 1. THE SLOW DRIFT ENGINE (SCOPED) --- */
-  /* 
-     We use a standard keyframe animation for the hue, but apply it to a 
-     custom property that is only used in specific calculations.
-  */
-
-  /* --- 2. PALETTE GENERATION (OKLCH) --- */
   --base-hue: 0;
 
-  /* 
-     We will animate --dynamic-hue using @property if available, 
-     but to really save the CPU, we should avoid reading it in layout-triggering properties.
-  */
+  /* --- 2. PALETTE GENERATION (OKLCH) --- */
   animation: hue-cycle 30s linear infinite;
 
   --orb-1: oklch(90% 0.1 var(--dynamic-hue));
@@ -41,8 +32,7 @@
   --fg-accent: oklch(60% 0.15 var(--dynamic-hue));
 
   /* Semantic */
-  --color-scarcity: oklch(60% 0.18 30);
-  /* Vibrant Red-Orange */
+  --color-scarcity: oklch(60% 0.18 30); /* Vibrant Red-Orange */
 
   /* Layout */
   --radius-blob: 24px;
@@ -93,15 +83,11 @@ body {
 
 /* --- HEADER UNIT UTILITY --- */
 .header-group {
-  /* Locks the Banner and Header together physically */
   display: flex;
   flex-direction: column;
-
   position: sticky;
   top: 0;
   z-index: 50;
-
-  /* Shared Glass Effect with Dynamic Gradient */
   background: linear-gradient(30deg,
       oklch(95% 0.05 var(--dynamic-hue) / 0.6),
       oklch(95% 0.05 calc(var(--dynamic-hue) + 60) / 0.6));
@@ -119,134 +105,6 @@ body {
 }
 
 /* --- GPU ACCELERATION FOR BLOBS --- */
-/* Prevents flickering by forcing own composite layer */
-.blob-layer {
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-  will-change: transform;
-}
-
-/* FILE: src/index.css */
-
-:root {
-  /* --- 1. THE SLOW DRIFT ENGINE (SCOPED) --- */
-  /* 
-     We use a standard keyframe animation for the hue, but apply it to a 
-     custom property that is only used in specific calculations.
-  */
-
-  /* --- 2. PALETTE GENERATION (OKLCH) --- */
-  --base-hue: 0;
-
-  /* 
-     We will animate --dynamic-hue using @property if available, 
-     but to really save the CPU, we should avoid reading it in layout-triggering properties.
-  */
-  animation: hue-cycle 30s linear infinite;
-
-  --orb-1: oklch(90% 0.1 var(--dynamic-hue));
-  --orb-2: oklch(88% 0.12 calc(var(--dynamic-hue) + 60));
-  --orb-3: oklch(85% 0.1 calc(var(--dynamic-hue) + 120));
-
-  /* --- 3. FROSTED GLASS PHYSICS (Light Mode) --- */
-  --bg-canvas: oklch(99% 0.005 var(--dynamic-hue));
-
-  /* Transparent Surface (for overlay cards) */
-  --glass-surface: oklch(100% 0 0 / 0.75);
-
-  /* Opaque Surface (for tooltips/modals requiring occlusion) */
-  --surface-solid: oklch(100% 0 0);
-
-  --glass-border: oklch(100% 0 0 / 0.5);
-  --glass-highlight: oklch(100% 0 0 / 0.4);
-  --glass-shadow: oklch(0% 0 0 / 0.08);
-
-  /* Text */
-  --fg-primary: oklch(25% 0.05 var(--dynamic-hue));
-  --fg-secondary: oklch(50% 0.05 var(--dynamic-hue));
-  --fg-accent: oklch(60% 0.15 var(--dynamic-hue));
-
-  /* Semantic */
-  --color-scarcity: oklch(60% 0.18 30);
-  /* Vibrant Red-Orange */
-
-  /* Layout */
-  --radius-blob: 24px;
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 4rem;
-  --header-height: 80px;
-
-  /* Typography */
-  --font-brand: 'Pacifico', cursive;
-  --font-body: 'Geist', sans-serif;
-}
-
-/* --- DARK MODE OVERRIDES --- */
-.dark {
-  --bg-canvas: oklch(8% 0.02 var(--dynamic-hue));
-  --glass-surface: oklch(15% 0.02 270 / 0.75);
-  --surface-solid: oklch(15% 0.02 270);
-  --glass-border: oklch(100% 0 0 / 0.15);
-  --glass-highlight: oklch(100% 0 0 / 0.2);
-  --glass-shadow: oklch(0% 0 0 / 0.5);
-  --fg-primary: oklch(98% 0 0);
-  --fg-secondary: oklch(75% 0.02 270);
-  --fg-accent: oklch(75% 0.15 var(--dynamic-hue));
-  --color-scarcity: oklch(65% 0.18 30);
-  --orb-1: oklch(45% 0.22 var(--dynamic-hue));
-  --orb-2: oklch(40% 0.24 calc(var(--dynamic-hue) + 60));
-  --orb-3: oklch(42% 0.2 calc(var(--dynamic-hue) + 120));
-}
-
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--bg-canvas);
-  color: var(--fg-primary);
-  transition: background-color 0.5s ease, color 0.5s ease;
-  overflow-x: hidden;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-}
-
-/* --- HEADER UNIT UTILITY --- */
-.header-group {
-  /* Locks the Banner and Header together physically */
-  display: flex;
-  flex-direction: column;
-
-  position: sticky;
-  top: 0;
-  z-index: 50;
-
-  /* Shared Glass Effect with Dynamic Gradient */
-  background: linear-gradient(30deg,
-      oklch(95% 0.05 var(--dynamic-hue) / 0.6),
-      oklch(95% 0.05 calc(var(--dynamic-hue) + 60) / 0.6));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.dark .header-group {
-  background: linear-gradient(30deg,
-      oklch(20% 0.1 var(--dynamic-hue) / 0.85),
-      oklch(20% 0.1 calc(var(--dynamic-hue) + 60) / 0.85));
-}
-
-/* --- GPU ACCELERATION FOR BLOBS --- */
-/* Prevents flickering by forcing own composite layer */
 .blob-layer {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -261,16 +119,10 @@ body {
 }
 
 @keyframes hue-cycle {
-  from {
-    --dynamic-hue: 0;
-  }
-
-  to {
-    --dynamic-hue: 360;
-  }
+  from { --dynamic-hue: 0; }
+  to { --dynamic-hue: 360; }
 }
 
-/* --- UTILITIES --- */
 .no-select {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -278,32 +130,25 @@ body {
   user-select: none;
 }
 
-/* --- PERFORMANCE UTILITIES --- */
-.hardware-accelerated {
-  transform: translateZ(0);
-  will-change: transform, opacity;
-}
-
 /* 
    FAKE GLASS FALLBACK
-   For devices that struggle with backdrop-filter (Intel HD, older mobiles).
-   This can be toggled via a class on the body or detected via media query if possible.
-   For now, we will use a class '.low-power' that can be toggled.
+   Automatically applied via media query for accessibility/performance.
 */
-.low-power .header-group {
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  background: var(--glass-surface);
-  /* More opaque */
-  border-bottom: 1px solid var(--surface-solid);
-}
+@media (prefers-reduced-transparency) {
+  :root {
+    --glass-surface: oklch(100% 0 0 / 0.95);
+    --glass-border: oklch(0% 0 0 / 0.1);
+  }
+  
+  .dark {
+    --glass-surface: oklch(15% 0.02 270 / 0.95);
+    --glass-border: oklch(100% 0 0 / 0.1);
+  }
 
-.low-power {
-  --glass-surface: oklch(100% 0 0 / 0.95);
-  --glass-border: oklch(0% 0 0 / 0.1);
-}
-
-.dark.low-power {
-  --glass-surface: oklch(15% 0.02 270 / 0.95);
-  --glass-border: oklch(100% 0 0 / 0.1);
+  .header-group {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--glass-surface);
+    border-bottom: 1px solid var(--surface-solid);
+  }
 }

@@ -21,11 +21,12 @@ export function ProductCard({ product, onClick, priority = false }: ProductCardP
     const stockMap = useAtomValue(scarcityAtom);
     const stock = stockMap[product.id];
 
-    // Low stock threshold matches atoms.ts logic (1-5)
+    // Unified Scarcity Logic
+    // Stock <= 5: "SELLING FAST" (Red/Sale variant)
+    // Stock > 5: "HOT" (Accent/Hot variant)
     const isLowStock = stock !== undefined && stock <= 5;
-
-    // Deterministic badge text based on product ID
-    const badgeText = product.id.charCodeAt(0) % 2 === 0 ? 'HOT' : 'SELLING FAST';
+    const badgeText = isLowStock ? 'SELLING FAST' : 'HOT';
+    const badgeVariant = isLowStock ? 'sale' : 'hot';
 
     return (
         <button
@@ -49,6 +50,7 @@ export function ProductCard({ product, onClick, priority = false }: ProductCardP
                     <GlassSkeleton />
                 </div>
 
+                {/* Standard Image (No shared element transition) */}
                 <img
                     src={getAssetUrl(product.image)}
                     alt=""
@@ -59,16 +61,14 @@ export function ProductCard({ product, onClick, priority = false }: ProductCardP
                     onLoad={() => setIsLoaded(true)}
                 />
 
-                {isLowStock && (
-                    <div className={styles.badgeOverlay} style={{
-                        position: 'absolute',
-                        top: '12px',
-                        right: '12px',
-                        zIndex: 20
-                    }}>
-                        <Badge variant="sale">{badgeText}</Badge>
-                    </div>
-                )}
+                <div className={styles.badgeOverlay} style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    zIndex: 20
+                }}>
+                    <Badge variant={badgeVariant}>{badgeText}</Badge>
+                </div>
 
                 <div className={`${styles.badgeContainer} no-select`}>
                     <ScarcityCounter productId={product.id} compact />

@@ -1,3 +1,4 @@
+/* FILE: src/components/Badge.module.css */
 .badge {
     display: inline-flex;
     align-items: center;
@@ -24,6 +25,16 @@
     color: white;
     border: 1px solid white;
     box-shadow: 0 2px 8px oklch(63% 0.22 25 / 0.4);
+    font-size: 0.75rem;
+    padding: 2px 8px;
+}
+
+.hot {
+    /* Vibrant Accent for High Visibility */
+    background: var(--fg-accent);
+    color: var(--bg-canvas); /* Adapts to dark/light mode for contrast */
+    border: 1px solid transparent;
+    box-shadow: 0 2px 8px var(--glass-highlight);
     font-size: 0.75rem;
     padding: 2px 8px;
 }

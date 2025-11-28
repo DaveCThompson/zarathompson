@@ -1,7 +1,9 @@
 // FILE: src/data/products.ts
 
+export type ProductVariantID = 'digital' | 'print-5x7' | 'print-10x8' | 'print-21x33';
+
 export interface ProductVariant {
-    id: string;
+    id: ProductVariantID;
     label: string;
     price: number;
     isDigital: boolean;
@@ -12,13 +14,12 @@ export interface Product {
     id: string;
     title: string;
     description: string;
-    image: string;      // 400w Thumbnail (Grid)
-    imageFull?: string; // 800w Preview (Modal)
+    image: string;      // 400w Standard
     basePrice: number;
     variants: ProductVariant[];
 }
 
-// TODO: Replace these with your actual Stripe Payment Links once generated
+// Static Stripe Payment Links
 const STRIPE_LINKS = {
     DIGITAL: 'https://buy.stripe.com/dRm14mbD6fZE5oG3tyeME02',
     PRINT_5x7: 'https://buy.stripe.com/3cI4gy5eIfZEeZg5BGeME03',
@@ -31,9 +32,7 @@ export const PRODUCTS: Product[] = [
         id: 'basketball',
         title: 'The Court King',
         description: 'Dominating the court with eagle-eyed precision. A high-energy tribute to the game.',
-        // UPDATED: Matches new 400w/800w convention
         image: '/art/400w_basketball.webp',
-        imageFull: '/art/800w_basketball.webp',
         basePrice: 3.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 3.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -46,9 +45,7 @@ export const PRODUCTS: Product[] = [
         id: 'pop-singer',
         title: 'Pop Star',
         description: 'Explosive energy and stardom. A vibrant tribute to pop culture.',
-        // UPDATED: Note underscore in filename vs hyphen in ID
         image: '/art/400w_pop_singer.webp',
-        imageFull: '/art/800w_pop_singer.webp',
         basePrice: 3.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 3.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -62,7 +59,6 @@ export const PRODUCTS: Product[] = [
         title: 'I Need A Hug (Blue)',
         description: 'A soulful gaze that tugs at the heartstrings. Set against a calming blue backdrop.',
         image: '/art/400w_pug_blue.webp',
-        imageFull: '/art/800w_pug_blue.webp',
         basePrice: 3.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 3.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -76,7 +72,6 @@ export const PRODUCTS: Product[] = [
         title: 'I Need A Hug (Pink)',
         description: 'Irresistible charm in a warm embrace. A cozy pink setting for a lovable friend.',
         image: '/art/400w_pug_pink.webp',
-        imageFull: '/art/800w_pug_pink.webp',
         basePrice: 3.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 3.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -90,7 +85,6 @@ export const PRODUCTS: Product[] = [
         title: 'The Royal Striker',
         description: 'Regal and commanding on the pitch. A powerful composition of athleticism and grace.',
         image: '/art/400w_soccer.webp',
-        imageFull: '/art/800w_soccer.webp',
         basePrice: 3.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 3.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
@@ -104,7 +98,6 @@ export const PRODUCTS: Product[] = [
         title: 'The Soaring Spike',
         description: 'Gravity-defying action at the net. Capturing the peak moment of the game.',
         image: '/art/400w_volleyball.webp',
-        imageFull: '/art/800w_volleyball.webp',
         basePrice: 3.00,
         variants: [
             { id: 'digital', label: 'Digital Download', price: 3.00, isDigital: true, stripeLink: STRIPE_LINKS.DIGITAL },
