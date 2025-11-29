@@ -38,6 +38,7 @@
     box-shadow: 0 8px 32px var(--glass-shadow);
     overflow: hidden;
     transition: transform 0.2s ease;
+    user-select: none;
 }
 
 .container:active {
