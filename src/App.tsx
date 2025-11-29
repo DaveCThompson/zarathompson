@@ -5,7 +5,6 @@ import { Toaster } from 'sonner';
 import { useAtomValue } from 'jotai';
 import { darkModeAtom } from '@/data/atoms';
 import { PRODUCTS, type Product } from '@/data/products';
-import { getAssetUrl } from '@/data/assets';
 import confetti from 'canvas-confetti';
 
 import { InteractiveBackground } from '@/features/layout/InteractiveBackground';
