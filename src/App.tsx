@@ -14,6 +14,7 @@ import { Footer } from '@/features/layout/Footer';
 import { ProductGrid } from '@/features/shop/ProductGrid';
 import { CharityBanner } from '@/features/layout/CharityBanner';
 import { SuccessModal } from '@/features/layout/SuccessModal';
+import { Avatar } from '@/components/Avatar';
 import styles from './App.module.css';
 
 const ProductDetail = lazy(() => import('@/features/shop/ProductDetail').then(module => ({ default: module.ProductDetail })));
@@ -36,7 +37,7 @@ function App() {
   // --- 2. DEEP LINKING & SUCCESS LOGIC ---
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    
+
     // Check for Product ID
     const productId = params.get('product');
     if (productId) {
@@ -50,7 +51,7 @@ function App() {
     // Check for Success Flag
     if (params.get('success') === 'true') {
       setIsSuccessOpen(true);
-      
+
       // Trigger Confetti
       const duration = 3000;
       const end = Date.now() + duration;
@@ -125,13 +126,7 @@ function App() {
         <main className={styles.main}>
           <div className={styles.hero}>
             {/* AVATAR SECTION */}
-            <div className={styles.avatar}>
-                <img 
-                    src={getAssetUrl('/assets/zara-avatar.webp')} 
-                    alt="Zara Thompson"
-                    className={styles.avatarImg}
-                />
-            </div>
+            <Avatar />
 
             <h2 className={styles.title}>
               Hi! I'm Zara.
@@ -160,9 +155,9 @@ function App() {
         />
       </Suspense>
 
-      <SuccessModal 
-        open={isSuccessOpen} 
-        onOpenChange={setIsSuccessOpen} 
+      <SuccessModal
+        open={isSuccessOpen}
+        onOpenChange={setIsSuccessOpen}
       />
     </>
   );
