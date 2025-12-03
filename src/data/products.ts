@@ -21,10 +21,10 @@ export interface Product {
 
 // Static Stripe Payment Links
 const STRIPE_LINKS = {
-    DIGITAL: 'https://buy.stripe.com/dRm14mbD6fZE5oG3tyeME02',
-    PRINT_5x7: 'https://buy.stripe.com/3cI4gy5eIfZEeZg5BGeME03',
-    PRINT_10x8: 'https://buy.stripe.com/00w14mePidRwcR84xCeME01',
-    PRINT_21x33: 'https://buy.stripe.com/dRm8wO4aEcNsdVc3tyeME05',
+    DIGITAL: 'https://donate.stripe.com/dRm14mbD6fZE5oG3tyeME02',
+    PRINT_5x7: 'https://donate.stripe.com/3cI4gy5eIfZEeZg5BGeME03',
+    PRINT_10x8: 'https://donate.stripe.com/00w14mePidRwcR84xCeME01',
+    PRINT_21x33: 'https://donate.stripe.com/eVqcN48qU5l04kCe8ceME04',
 };
 
 export const PRODUCTS: Product[] = [
